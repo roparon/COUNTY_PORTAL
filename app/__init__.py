@@ -9,6 +9,15 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    # Register the blueprints
+    # Blueprints import
+    from app.main.views import main_bp
+    from app.api.routes import api_bp
+    # Register the API blueprint
+    # Register the blueprint
+    app.register_blueprint(main_bp)
+    app.register_blueprint(api_bp)
+
 
 
     with app.app_context():
