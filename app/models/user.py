@@ -8,7 +8,7 @@ roles_users = db.Table('roles_users',
     db.Column('role_id', db.Integer(), db.ForeignKey('roles.id'))
 )
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     # This is basic identity fielsds that comes with Flask-Security
 
@@ -29,7 +29,7 @@ class User(db.Model):
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
 
-class Role(db.Model):
+class Role(RoleMixin,db.Model):
     __tablename__ = 'roles'
     # This is basic identity fielsds that comes with Flask-Security
     id = db.Column(db.Integer, primary_key=True)
