@@ -1,5 +1,6 @@
 from app.extensions import db
 from flask_security import UserMixin, RoleMixin
+import uuid
 
 # This is the association table for many-to-many relationship between users and roles 
 roles_users = db.Table('roles_users',
@@ -14,6 +15,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+    #flask-security required fields for tokens, sessions, password management
+    fs_uniquifier = db.Column(db.String(64), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 
 
 
