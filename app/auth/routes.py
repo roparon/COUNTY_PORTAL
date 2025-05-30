@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask_security import login_required, current_user
+from app.models.user import User
 
 
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
