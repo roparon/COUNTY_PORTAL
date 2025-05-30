@@ -18,11 +18,13 @@ def create_app():
     # Blueprints import
     from app.main.views import main_bp
     from app.api.routes import api_bp
+    from app.auth.routes import auth_bp
 
     # Register the API blueprint
     # Register the blueprint
     app.register_blueprint(main_bp)
     app.register_blueprint(api_bp)
+    app.register_blueprint(auth_bp)
 
     # Import models abd initialize flask-Security
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
