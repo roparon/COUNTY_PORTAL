@@ -50,22 +50,22 @@ def create_app():
                 role = Role(**role_data)
                 db.session.add(role)
             
-            admin_role = Role.query.filter_by(name='super_admin').first()
-            admin_user = User.query.filter_by(email='aaronrop40@gmail.com').first()
+        admin_role = Role.query.filter_by(name='super_admin').first()
+        admin_user = User.query.filter_by(email='aaronrop40@gmail.com').first()
 
 
-            if not admin_user:
-                admin_user = User(
-                    email='aaronrop40@gmail.com',
-                    password=hash_password('12345678',),
-                    active=True,
-                    roles=[admin_role],
-                    fs_uniquifier= str(uuid.uuid4())
-                )
-                admin_role.users.append(admin_role)
-                db.session.add(admin_user)
-            db.session.commit()
-            print("Database initialized with admin user and roles.")
+        if not admin_user:
+            admin_user = User(
+                email='aaronrop40@gmail.com',
+                password=hash_password('12345678'),
+                active=True,
+                roles=[admin_role],
+                fs_uniquifier= str(uuid.uuid4())
+            )
+            admin_role.users.append(admin_role)
+            db.session.add(admin_user)
+        db.session.commit()
+        print("Database initialized with admin user and roles.")
 
 
 
