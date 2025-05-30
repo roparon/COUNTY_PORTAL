@@ -8,7 +8,7 @@ main_bp = Blueprint('main_bp', __name__)
 @main_bp.route('/')
 @login_required
 def index():
-    return "Welcome to County Portal!"
+    return f"Welcome to County Portal! {current_user.email} "
 
 
 @main_bp.route('/about')
