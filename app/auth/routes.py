@@ -1,5 +1,5 @@
-from flask import Blueprint
-from flask_security import login_required, current_user
+from flask import Blueprint, redirect, url_for
+from flask_security import login_required, current_user, logout_user
 from app.models.user import User
 
 
@@ -25,3 +25,10 @@ def users():
     all_users = User.querry.all()
     for user in all_users:
         return f"{user.email} is logged in"
+    
+
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main_bp.index'))

@@ -21,3 +21,4 @@ def about():
 @roles_required('super_admin')
 def dashboard():
     return "This is the dashboard where is accesible for admin only!"
+
