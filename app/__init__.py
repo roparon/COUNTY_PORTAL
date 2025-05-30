@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
-from app.extensions import db
+from app.extensions import db, User, Role
 from app.extensions import db, migrate
-from config import Config, mail
+from config import Config, mail, security
 
 def create_app():
     app = Flask(__name__)
@@ -10,6 +10,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     mail.init_app(app)
+
 
     # Register the blueprints
     # Blueprints import
@@ -20,6 +21,10 @@ def create_app():
     # Register the blueprint
     app.register_blueprint(main_bp)
     app.register_blueprint(api_bp)
+
+    # Import models abd initialize flask-Security
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, user_datastore)
 
 
 
