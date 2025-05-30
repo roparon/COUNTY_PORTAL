@@ -18,9 +18,9 @@ class User(db.Model):
 
     # Account status
     active = db.Column(db.Boolean, default=True)
-    confirmed_at = db.Column(db.Datetime())
+    confirmed_at = db.Column(db.DateTime())
     created_at = db.Column(db.DateTime(), default=db.func.current_Timestamp())
-    
+
     #flask-security required fields for tokens, sessions, password management
     fs_uniquifier = db.Column(db.String(64), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
     # Tracking fields

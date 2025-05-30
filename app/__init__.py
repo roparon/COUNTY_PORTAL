@@ -1,8 +1,10 @@
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
-from app.extensions import db, User, Role
+from app.extensions import db
 from app.extensions import db, migrate
-from config import Config, mail, security
+from app.models.user import User, Role
+from config import Config
+from app.extensions import mail, security
 
 def create_app():
     app = Flask(__name__)
