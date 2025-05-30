@@ -15,10 +15,12 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+
     # Account status
     active = db.Column(db.Boolean, default=True)
     confirmed_at = db.Column(db.Datetime())
     created_at = db.Column(db.DateTime(), default=db.func.current_Timestamp())
+    
     #flask-security required fields for tokens, sessions, password management
     fs_uniquifier = db.Column(db.String(64), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
     # Tracking fields
