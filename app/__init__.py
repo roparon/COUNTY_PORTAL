@@ -29,11 +29,46 @@ def create_app():
     # Import models abd initialize flask-Security
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore)
+    from flask_security import hash_password
+    import uuid
 
 
 
     with app.app_context():
         db.create_all()
+
+        roles_data = [
+            {'name': 'super_admin', 'description': 'Administrator role with full access'},
+            {'name': 'staff', 'description': 'Staff role with limited access'},
+            {'name': 'citizen', 'description': 'Citizen role with basic access'},
+            {'name': 'guest', 'description': 'Guest role with minimal access'}
+        ]
+
+        for role_data in roles_data:
+            role = Role.query.filter_by(name=role_data['name']).first()
+            if not role:
+                role = Role(**role_data)
+                db.session.add(role)
+            
+            admin_role = Role.query.filter_by(name='super_admin').first()
+            admin_user = User.query.filter_by(email='aaronrop40@gmail.com').first()
+
+
+            if not admin_user:
+                admin_user = User(
+                    email='aaronrop40@gmail.com',
+                    password=hash_password('12345678',),
+                    active=True,
+                    roles=[admin_role],
+                    fs_uniquifier= str(uuid.uuid4())
+                )
+                admin_role.users.append(admin_role)
+                db.session.add(admin_user)
+            db.session.commit()
+            print("Database initialized with admin user and roles.")
+
+
+
     return app
 
 
