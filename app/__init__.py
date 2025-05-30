@@ -13,6 +13,7 @@ def create_app():
     # Blueprints import
     from app.main.views import main_bp
     from app.api.routes import api_bp
+    
     # Register the API blueprint
     # Register the blueprint
     app.register_blueprint(main_bp)
