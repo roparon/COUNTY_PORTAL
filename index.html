@@ -4,30 +4,66 @@
     <meta charset="UTF-8">
     <title>County Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
+        nav { background: #343a40; color: #fff; padding: 1em 0; }
+        nav .container { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: auto; }
+        nav a { color: #fff; text-decoration: none; margin-left: 1em; }
+        nav a:hover { text-decoration: underline; }
+        .container { max-width: 900px; margin: 2em auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
+        h1, h2 { color: #343a40; }
+        .btn { display: inline-block; padding: 0.5em 1.2em; margin: 0.5em 0.2em; border: none; border-radius: 4px; background: #007bff; color: #fff; cursor: pointer; text-decoration: none;}
+        .btn.secondary { background: #6c757d; }
+        .btn.link { background: none; color: #007bff; text-decoration: underline; padding: 0; }
+        form div { margin-bottom: 1em; }
+        label { display: block; margin-bottom: 0.3em; }
+        input, select { width: 100%; padding: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
+        ul { padding-left: 1.2em; }
+        .center { text-align: center; }
+        .hero { background: #007bff; color: #fff; padding: 2em; border-radius: 8px; margin-bottom: 2em; }
+        .hero h1 { color: #fff; }
+        @media (max-width: 600px) {
+            .container { padding: 1em; }
+            nav .container { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
 </head>
 <body>
 <nav>
-    <div>
-        <span><b>County Portal</b></span>
-        <span style="float:right;">
-            <a href="#login">Login</a> |
+    <div class="container">
+        <span style="font-size:1.3em;font-weight:bold;">County Portal</span>
+        <span>
+            <a href="#home">Home</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#users">Users</a>
+            <a href="#login">Login</a>
             <a href="#register">Register</a>
         </span>
     </div>
-    <hr>
 </nav>
-<div>
+<div class="container">
     <div id="home">
-        <h1>Welcome to County Portal!</h1>
-        <p>This portal provides various services and information related to county operations.</p>
-        <a href="#dashboard">Dashboard</a> |
-        <a href="#users">All Users</a>
+        <div class="hero center">
+            <h1>Welcome to the County Portal</h1>
+            <p>Your gateway to county services, information, and administration.</p>
+            <a href="#register" class="btn">Get Started</a>
+            <a href="#login" class="btn secondary">Login</a>
+        </div>
+        <div>
+            <h2>What You Can Do</h2>
+            <ul>
+                <li>Access personalized dashboards based on your role (Admin, Staff, Citizen)</li>
+                <li>View and manage county services</li>
+                <li>Stay informed with the latest county news and updates</li>
+                <li>Contact county staff and get support</li>
+            </ul>
+        </div>
     </div>
 
     <div id="dashboard" style="display:none;">
         <h2>Dashboard</h2>
         <p>This is the dashboard. Only admins can see this.</p>
-        <a href="#" onclick="showSection('home')">Back to Home</a>
+        <a href="#home" class="btn link">Back to Home</a>
     </div>
 
     <div id="users" style="display:none;">
@@ -37,22 +73,22 @@
             <li>staff@example.com - Role: staff</li>
             <li>citizen@example.com - Role: citizen</li>
         </ul>
-        <a href="#" onclick="showSection('home')">Back to Home</a>
+        <a href="#home" class="btn link">Back to Home</a>
     </div>
 
     <div id="login" style="display:none;">
         <h2>Login</h2>
         <form>
             <div>
-                <label for="loginEmail">Email address</label><br>
+                <label for="loginEmail">Email address</label>
                 <input type="email" id="loginEmail" placeholder="Enter email">
             </div>
             <div>
-                <label for="loginPassword">Password</label><br>
+                <label for="loginPassword">Password</label>
                 <input type="password" id="loginPassword" placeholder="Password">
             </div>
-            <button type="submit">Login</button>
-            <a href="#" onclick="showSection('home')">Cancel</a>
+            <button type="submit" class="btn">Login</button>
+            <a href="#home" class="btn link">Cancel</a>
         </form>
     </div>
 
@@ -60,12 +96,40 @@
         <h2>Register</h2>
         <form>
             <div>
-                <label for="registerEmail">Email address</label><br>
+                <label for="registerEmail">Email address</label>
                 <input type="email" id="registerEmail" placeholder="Enter email">
             </div>
             <div>
-                <label for="registerPassword">Password</label><br>
-                <input type="password" id="registerPassword
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" placeholder="Password">
+            </div>
+            <div>
+                <label for="registerRole">Role</label>
+                <select id="registerRole">
+                    <option value="citizen">Citizen</option>
+                    <option value="staff">Staff</option>
+                </select>
+            </div>
+            <button type="submit" class="btn secondary">Register</button>
+            <a href="#home" class="btn link">Cancel</a>
+        </form>
+    </div>
 </div>
+
+<script>
+function showSection(section) {
+    ['home', 'dashboard', 'users', 'login', 'register'].forEach(function(id) {
+        document.getElementById(id).style.display = (id === section) ? 'block' : 'none';
+    });
+}
+window.addEventListener('hashchange', function() {
+    const section = location.hash.replace('#', '') || 'home';
+    showSection(section);
+});
+window.addEventListener('DOMContentLoaded', function() {
+    const section = location.hash.replace('#', '') || 'home';
+    showSection(section);
+});
+</script>
 </body>
 </html>
