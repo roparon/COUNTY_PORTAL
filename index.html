@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>County Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<nav>
+    <div>
+        <span><b>County Portal</b></span>
+        <span style="float:right;">
+            <a href="#login">Login</a> |
+            <a href="#register">Register</a>
+        </span>
+    </div>
+    <hr>
+</nav>
+<div>
+    <div id="home">
+        <h1>Welcome to County Portal!</h1>
+        <p>This portal provides various services and information related to county operations.</p>
+        <a href="#dashboard">Dashboard</a> |
+        <a href="#users">All Users</a>
+    </div>
+
+    <div id="dashboard" style="display:none;">
+        <h2>Dashboard</h2>
+        <p>This is the dashboard. Only admins can see this.</p>
+        <a href="#" onclick="showSection('home')">Back to Home</a>
+    </div>
+
+    <div id="users" style="display:none;">
+        <h2>All Users</h2>
+        <ul>
+            <li>aaronrop40@gmail.com - Role: super_admin</li>
+            <li>staff@example.com - Role: staff</li>
+            <li>citizen@example.com - Role: citizen</li>
+        </ul>
+        <a href="#" onclick="showSection('home')">Back to Home</a>
+    </div>
+
+    <div id="login" style="display:none;">
+        <h2>Login</h2>
+        <form>
+            <div>
+                <label for="loginEmail">Email address</label><br>
+                <input type="email" id="loginEmail" placeholder="Enter email">
+            </div>
+            <div>
+                <label for="loginPassword">Password</label><br>
+                <input type="password" id="loginPassword" placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+            <a href="#" onclick="showSection('home')">Cancel</a>
+        </form>
+    </div>
+
+    <div id="register" style="display:none;">
+        <h2>Register</h2>
+        <form>
+            <div>
+                <label for="registerEmail">Email address</label><br>
+                <input type="email" id="registerEmail" placeholder="Enter email">
+            </div>
+            <div>
+                <label for="registerPassword">Password</label><br>
+                <input type="password" id="registerPassword" placeholder="Password">
+            </div>
+            <div>
+                <label for="registerRole">Role</label><br>
+                <select id="registerRole">
+                    <option value="citizen">Citizen</option>
+                    <option value="staff">Staff</option>
+                </select>
+            </div>
+            <button type="submit">Register</button>
+            <a href="#" onclick="showSection('home')">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<script>
+function showSection(section) {
+    ['home', 'dashboard', 'users', 'login', 'register'].forEach(function(id) {
+        document.getElementById(id).style.display = (id === section) ? 'block' : 'none';
+    });
+}
+window.addEventListener('hashchange', function() {
+    const section = location.hash.replace('#', '') || 'home';
+    showSection(section);
+});
+window.addEventListener('DOMContentLoaded', function() {
+    const section = location.hash.replace('#', '') || 'home';
+    showSection(section);
+});
+</script>
+</body>
+</html>
