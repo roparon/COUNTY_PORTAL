@@ -1,97 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>County Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; background: #f8f9fa; }
-        nav { background: #343a40; color: #fff; padding: 1em 0; }
-        nav .container { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: auto; }
-        nav a { color: #fff; text-decoration: none; margin-left: 1em; }
-        nav a:hover { text-decoration: underline; }
-        .container { max-width: 900px; margin: 2em auto; background: #fff; padding: 2em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);}
-        h1, h2 { color: #343a40; }
-        .btn { display: inline-block; padding: 0.5em 1.2em; margin: 0.5em 0.2em; border: none; border-radius: 4px; background: #007bff; color: #fff; cursor: pointer; text-decoration: none;}
-        .btn.secondary { background: #6c757d; }
-        .btn.link { background: none; color: #007bff; text-decoration: underline; padding: 0; }
-        form div { margin-bottom: 1em; }
-        label { display: block; margin-bottom: 0.3em; }
-        input, select { width: 100%; padding: 0.5em; border: 1px solid #ccc; border-radius: 4px; }
-        ul { padding-left: 1.2em; }
-        .center { text-align: center; }
-        .hero { background: #007bff; color: #fff; padding: 2em; border-radius: 8px; margin-bottom: 2em; }
-        .hero h1 { color: #fff; }
-        @media (max-width: 600px) {
-            .container { padding: 1em; }
-            nav .container { flex-direction: column; align-items: flex-start; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>County Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --primary: #007bff;
+      --dark: #343a40;
+      --light: #f8f9fa;
+      --text: #212529;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    nav {
+      background: var(--dark);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      color: white;
+    }
+
+    .nav-container a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-container a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      background: linear-gradient(to right, #007bff, #0056b3);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+      animation: fadeIn 2s ease;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 0.7rem 1.5rem;
+      margin: 0.3rem;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #e2e6ea;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      animation: slideIn 1s ease;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    form {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    form div {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--dark);
+      color: white;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 600px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
+
 <nav>
-    <div class="container">
-        <span style="font-size:1.3em;font-weight:bold;">County Portal</span>
-        <span>
-            <a href="#home">Home</a>
-            <a href="#dashboard">Dashboard</a>
-            <a href="#users">Users</a>
-            <a href="#login">Login</a>
-            <a href="#register">Register</a>
-        </span>
+  <div class="nav-container">
+    <div style="font-size: 1.4rem; font-weight: bold;">County Portal</div>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#login">Login</a>
+      <a href="#register">Register</a>
     </div>
+  </div>
 </nav>
-<div class="container">
-    <div id="home">
-        <div class="hero center">
-            <h1>Welcome to the County Portal</h1>
-            <p>Your gateway to county services, information, and administration.</p>
-            <a href="#register" class="btn">Get Started</a>
-            <a href="#login" class="btn secondary">Login</a>
-        </div>
-        <div>
-            <h2>What You Can Do</h2>
-            <ul>
-                <li>Access personalized dashboards based on your role (Admin, Staff, Citizen)</li>
-                <li>View and manage county services</li>
-                <li>Stay informed with the latest county news and updates</li>
-                <li>Contact county staff and get support</li>
-            </ul>
-        </div>
-    </div>
 
-    <div id="dashboard" style="display:none;">
-        <h2>Dashboard</h2>
-        <p>This is the dashboard. Only admins can see this.</p>
-        <a href="#home" class="btn link">Back to Home</a>
-    </div>
-
-    <div id="users" style="display:none;">
-        <h2>All Users</h2>
-        <ul>
-            <li>aaronrop40@gmail.com - Role: super_admin</li>
-            <li>staff@example.com - Role: staff</li>
-            <li>citizen@example.com - Role: citizen</li>
-        </ul>
-        <a href="#home" class="btn link">Back to Home</a>
-    </div>
-
-    <div id="login" style="display:none;">
-        <h2>Login</h2>
-        <form>
-            <div>
-                <label for="loginEmail">Email address</label>
-                <input type="email" id="loginEmail" placeholder="Enter email">
-            </div>
-            <div>
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="Password">
-            </div>
-            <button type="submit" class="btn">Login</button>
-            <a href="#home" class="btn link">Cancel</a>
-        </form>
-    </div>
-    </div>
+<div class="hero" id="home">
+  <h1>Welcome to the County Portal</h1>
+  <p>Your gateway to county services, news, and administration.</p>
+  <a href="#register" class="btn">Get Started</a>
+  <a href="#login" class="btn">Login</a>
 </div>
+
+<section id="features">
+  <h2>What You Can Do</h2>
+  <ul>
+    <li>Access dashboards based on your role (Admin, Staff, Citizen)</li>
+    <li>View and manage county services</li>
+    <li>Stay updated with county news</li>
+    <li>Contact and get support from county offices</li>
+  </ul>
+</section>
+
+<section id="login">
+  <h2>Login</h2>
+  <form>
+    <div>
+      <label for="loginEmail">Email address</label>
+      <input type="email" id="loginEmail" placeholder="Enter email">
+    </div>
+    <div>
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" placeholder="Password">
+    </div>
+    <button class="btn" type="submit">Login</button>
+  </form>
+</section>
+
+<section id="register">
+  <h2>Register</h2>
+  <form>
+    <div>
+      <label for="registerEmail">Email address</label>
+      <input type="email" id="registerEmail" placeholder="Enter email">
+    </div>
+    <div>
+      <label for="registerPassword">Password</label>
+      <input type="password" id="registerPassword" placeholder="Password">
+    </div>
+    <div>
+      <label for="registerRole">Role</label>
+      <select id="registerRole">
+        <option value="citizen">Citizen</option>
+        <option value="staff">Staff</option>
+      </select>
+    </div>
+    <button class="btn" type="submit">Register</button>
+  </form>
+</section>
+
+<footer>
+  &copy; 2025 County Portal. All rights reserved.
+</footer>
+
 </body>
 </html>
