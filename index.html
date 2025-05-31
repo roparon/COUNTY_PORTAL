@@ -77,6 +77,20 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Register</button>
+            <a href="#" class="btn btn-link" onclick="showSection('home')">Cancel</a>
+        </form>
+    </div>
+</div>
+<script>
+    function showSection(section) {
+        document.querySelectorAll('.container > div').forEach(div => {
+            div.style.display = 'none';
+        });
+        document.getElementById(section).style.display = 'block';
+    }
+
+    // Show home section by default
+    showSection('home');
 
 </body>
 </html>
