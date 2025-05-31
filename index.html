@@ -115,21 +115,5 @@
         </form>
     </div>
 </div>
-
-<script>
-function showSection(section) {
-    ['home', 'dashboard', 'users', 'login', 'register'].forEach(function(id) {
-        document.getElementById(id).style.display = (id === section) ? 'block' : 'none';
-    });
-}
-window.addEventListener('hashchange', function() {
-    const section = location.hash.replace('#', '') || 'home';
-    showSection(section);
-});
-window.addEventListener('DOMContentLoaded', function() {
-    const section = location.hash.replace('#', '') || 'home';
-    showSection(section);
-});
-</script>
 </body>
 </html>
