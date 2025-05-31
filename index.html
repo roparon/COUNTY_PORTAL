@@ -11,7 +11,6 @@
       --dark: #343a40;
       --light: #f8f9fa;
       --text: #212529;
-      --flower: #ff69b4;
     }
 
     * {
@@ -22,27 +21,9 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
       background: var(--light);
       color: var(--text);
-      overflow-x: hidden;
-    }
-
-    /* STAR BACKGROUND */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: transparent;
-      background-image: radial-gradient(white 1px, transparent 1px);
-      background-size: 40px 40px;
-      opacity: 0.2;
-      z-index: -1;
-      animation: twinkle 5s infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.4; }
     }
 
     nav {
@@ -50,7 +31,7 @@
       padding: 1rem 0;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 999;
     }
 
     .nav-container {
@@ -79,8 +60,7 @@
       color: white;
       padding: 4rem 1rem;
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      animation: fadeIn 2s ease;
     }
 
     .hero h1 {
@@ -157,12 +137,6 @@
       margin-top: 3rem;
     }
 
-    /* ANIMATIONS */
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 600px) {
       .nav-container {
         flex-direction: column;
@@ -173,45 +147,14 @@
       }
     }
 
-    /* FLOWER DECORATIONS */
-    .flower {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--flower);
-      border-radius: 50%;
-      top: 20px;
-      left: 10%;
-      animation: float 6s infinite ease-in-out;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .flower::before,
-    .flower::after {
-      content: '';
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: var(--flower);
-      border-radius: 50%;
-    }
-
-    .flower::before {
-      top: -10px;
-      left: 10px;
-    }
-
-    .flower::after {
-      top: 10px;
-      left: -10px;
-    }
-
-    .flower:nth-child(2) { left: 80%; top: 50px; animation-delay: 2s; }
-    .flower:nth-child(3) { left: 30%; top: 100px; animation-delay: 4s; }
-
-    @keyframes float {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-15px) rotate(20deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -230,9 +173,6 @@
 </nav>
 
 <div class="hero" id="home">
-  <div class="flower"></div>
-  <div class="flower"></div>
-  <div class="flower"></div>
   <h1>Welcome to the County Portal</h1>
   <p>Your gateway to county services, news, and administration.</p>
   <a href="#register" class="btn">Get Started</a>
@@ -292,19 +232,3 @@
 
 </body>
 </html>
-<script>
-  // Simple form validation
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const email = this.querySelector('input[type="email"]').value;
-      const password = this.querySelector('input[type="password"]').value;
-
-      if (!email || !password) {
-        alert('Please fill in all fields.');
-        return;
-      }
-
-      alert('Form submitted successfully!');
-    });
-  });
