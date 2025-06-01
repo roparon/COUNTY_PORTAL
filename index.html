@@ -3,288 +3,148 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Web Journey</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+  <title>Interactive CV</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #bbdefb);
-      color: #0d47a1;
-      line-height: 1.6;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      color: #2c3e50;
+      margin: 0;
+      padding: 0;
     }
     header {
-      background: #0d47a1;
+      background: #34495e;
       color: white;
-      padding: 2rem 0;
+      padding: 2rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    header p { font-size: 1.1rem; }
-
-    .section {
-      padding: 3rem 1rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .skills, .projects {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    }
-    .card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card h3 {
+    header h1 {
       margin-bottom: 0.5rem;
-      color: #1565c0;
     }
-    .timeline {
-      position: relative;
-      padding-left: 2rem;
-      border-left: 3px solid #1976d2;
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
-    .timeline div {
+    .section {
       margin-bottom: 2rem;
     }
+    .section h2 {
+      color: #2980b9;
+      border-left: 5px solid #2980b9;
+      padding-left: 10px;
+      margin-bottom: 1rem;
+    }
+    .timeline {
+      border-left: 3px solid #3498db;
+      padding-left: 1rem;
+    }
+    .timeline div {
+      margin-bottom: 1.5rem;
+    }
     .timeline h4 {
-      margin-bottom: 0.3rem;
+      margin: 0 0 0.3rem;
     }
-    footer {
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .skill {
+      background: #ecf0f1;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .download {
       text-align: center;
-      padding: 2rem 1rem;
-      background: #0d47a1;
+      margin-top: 2rem;
+    }
+    .download a {
+      background: #2980b9;
       color: white;
+      padding: 0.7rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
     }
-    .fade-in {
-      animation: fadeIn 2s ease-in-out;
+    .download a:hover {
+      background: #1f618d;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Interactive CV</title>
-      <style>
-        body {
-          font-family: 'Segoe UI', sans-serif;
-          background: #f4f6f8;
-          color: #2c3e50;
-          margin: 0;
-          padding: 0;
-        }
-        header {
-          background: #34495e;
-          color: white;
-          padding: 2rem 1rem;
-          text-align: center;
-        }
-        header h1 {
-          margin-bottom: 0.5rem;
-        }
-        .container {
-          max-width: 1000px;
-          margin: 2rem auto;
-          padding: 1rem;
-          background: white;
-          border-radius: 10px;
-          box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .section {
-          margin-bottom: 2rem;
-        }
-        .section h2 {
-          color: #2980b9;
-          border-left: 5px solid #2980b9;
-          padding-left: 10px;
-          margin-bottom: 1rem;
-        }
-        .timeline {
-          border-left: 3px solid #3498db;
-          padding-left: 1rem;
-        }
-        .timeline div {
-          margin-bottom: 1.5rem;
-        }
-        .timeline h4 {
-          margin: 0 0 0.3rem;
-        }
-        .skills {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1rem;
-        }
-        .skill {
-          background: #ecf0f1;
-          padding: 1rem;
-          border-radius: 6px;
-        }
-        .download {
-          text-align: center;
-          margin-top: 2rem;
-        }
-        .download a {
-          background: #2980b9;
-          color: white;
-          padding: 0.7rem 1.5rem;
-          text-decoration: none;
-          border-radius: 5px;
-          transition: background 0.3s ease;
-        }
-        .download a:hover {
-          background: #1f618d;
-        }
-        @media print {
-          header, .download {
-            display: none;
-          }
-          body {
-            background: white;
-          }
-          .container {
-            box-shadow: none;
-            margin: 0;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <header>
-        <h1>Aaron Rop</h1>
-        <p>Software Engineer | Web Developer | Tech Enthusiast</p>
-      </header>
-    
-      <div class="container">
-        <section class="section">
-          <h2>Profile</h2>
-          <p>Motivated and passionate software developer with experience building full-stack web applications using Flask, HTML/CSS, and PostgreSQL. Dedicated to solving real-world problems through code.</p>
-        </section>
-    
-        <section class="section">
-          <h2>Experience</h2>
-          <div class="timeline">
-            <div>
-              <h4>Software Developer Intern - TabPay Systems (2024)</h4>
-              <p>Worked on role-based dashboards and RESTful APIs for county-level payments.</p>
-            </div>
-            <div>
-              <h4>Freelancer - Web Projects (2023–2025)</h4>
-              <p>Designed and deployed several web apps using Flask and Tailwind CSS.</p>
-            </div>
-          </div>
-        </section>
-    
-        <section class="section">
-          <h2>Education</h2>
-          <div class="timeline">
-            <div>
-              <h4>Software Engineering Certificate - ALX/Holberton School (2023–2025)</h4>
-              <p>Completed projects in Flask, databases, Git, and software architecture.</p>
-            </div>
-            <div>
-              <h4>KCSE - Kenya National Examinations Council (2022)</h4>
-              <p>Grade: A- in Computer Studies, Math, and English.</p>
-            </div>
-          </div>
-        </section>
-    
-        <section class="section">
-          <h2>Skills</h2>
-          <div class="skills">
-            <div class="skill">
-              <strong>Languages:</strong><br> Python, HTML, CSS, JavaScript
-            </div>
-            <div class="skill">
-              <strong>Frameworks:</strong><br> Flask, Flask-Security, Bootstrap
-            </div>
-            <div class="skill">
-              <strong>Tools:</strong><br> Git, GitHub, VS Code, SQLite, PostgreSQL
-            </div>
-          </div>
-        </section>
-    
-        <section class="download">
-          <a href="#" onclick="window.print()">📄 Download as PDF</a>
-        </section>
-      </div>
-    </body>
-    </html>
-    
+    @media print {
+      header, .download {
+        display: none;
+      }
+      body {
+        background: white;
+      }
+      .container {
+        box-shadow: none;
+        margin: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="fade-in">
-    <h1>My Web Journey</h1>
-    <p>Exploring code, design, and creativity through the web.</p>
+  <header>
+    <h1>Aaron Rop</h1>
+    <p>Software Engineer | Web Developer | Tech Enthusiast</p>
   </header>
 
-  <section class="section fade-in">
-    <h2>Skills</h2>
-    <div class="skills">
-      <div class="card">
-        <h3>HTML & CSS</h3>
-        <p>Building beautiful, responsive layouts and styling them with CSS.</p>
-      </div>
-      <div class="card">
-        <h3>JavaScript</h3>
-        <p>Interactive elements, dynamic content, and web application logic.</p>
-      </div>
-      <div class="card">
-        <h3>Flask & Python</h3>
-        <p>Creating backend logic and APIs for dynamic web apps.</p>
-      </div>
-    </div>
-  </section>
+  <div class="container">
+    <section class="section">
+      <h2>Profile</h2>
+      <p>Motivated and passionate software developer with experience building full-stack web applications using Flask, HTML/CSS, and PostgreSQL. Dedicated to solving real-world problems through code.</p>
+    </section>
 
-  <section class="section fade-in">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Portfolio Website</h3>
-        <p>Designed a modern personal site with responsive design and animations.</p>
+    <section class="section">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div>
+          <h4>Software Developer Intern - TabPay Systems (2024)</h4>
+          <p>Worked on role-based dashboards and RESTful APIs for county-level payments.</p>
+        </div>
+        <div>
+          <h4>Freelancer - Web Projects (2023–2025)</h4>
+          <p>Designed and deployed several web apps using Flask and Tailwind CSS.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>Task Tracker App</h3>
-        <p>Built with Flask, SQLite and Bootstrap to manage to-do items efficiently.</p>
-      </div>
-      <div class="card">
-        <h3>Kenya Live Score</h3>
-        <p>A real-time sports score portal using Flask and REST APIs.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="section fade-in">
-    <h2>Timeline</h2>
-    <div class="timeline">
-      <div>
-        <h4>2023 - Started learning HTML & CSS</h4>
-        <p>Practiced daily building layouts and replicating templates.</p>
+    <section class="section">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div>
+          <h4>Software Engineering Certificate - ALX/Holberton School (2023–2025)</h4>
+          <p>Completed projects in Flask, databases, Git, and software architecture.</p>
+        </div>
+        <div>
+          <h4>KCSE - Kenya National Examinations Council (2022)</h4>
+          <p>Grade: A- in Computer Studies, Math, and English.</p>
+        </div>
       </div>
-      <div>
-        <h4>2024 - Learned Flask and JavaScript</h4>
-        <p>Created multiple interactive apps and completed real-world projects.</p>
-      </div>
-      <div>
-        <h4>2025 - Building full-stack applications</h4>
-        <p>Using Flask, PostgreSQL, and advanced UI techniques.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <p>&copy; 2025 My Web Journey. Built with love and code.</p>
-  </footer>
+    <section class="section">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill">
+          <strong>Languages:</strong><br> Python, HTML, CSS, JavaScript
+        </div>
+        <div class="skill">
+          <strong>Frameworks:</strong><br> Flask, Flask-Security, Bootstrap
+        </div>
+        <div class="skill">
+          <strong>Tools:</strong><br> Git, GitHub, VS Code, SQLite, PostgreSQL
+        </div>
+      </div>
+    </section>
+
+    <section class="download">
+      <a href="#" onclick="window.print()">📄 Download as PDF</a>
+    </section>
+  </div>
 </body>
 </html>
