@@ -2,157 +2,139 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>From Numbers to Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Web Journey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: radial-gradient(ellipse at top, #111 0%, #000 100%);
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      line-height: 1.6;
+    }
+    header {
+      background: #0d47a1;
       color: white;
-      overflow-x: hidden;
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: transparent url('https://i.imgur.com/6L4H9Ia.png') repeat top center;
-      z-index: 0;
-      opacity: 0.2;
-    }
-
-    .hero {
-      position: relative;
+      padding: 2rem 0;
       text-align: center;
-      padding: 6em 1em;
-      background: linear-gradient(to bottom right, #1e3c72, #2a5298);
-      z-index: 1;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.1rem; }
 
-    .hero h1 {
-      font-size: 3em;
-      margin: 0 0 0.3em;
-      color: #fff;
+    .section {
+      padding: 3rem 1rem;
+      max-width: 1100px;
+      margin: auto;
     }
-
-    .hero p {
-      font-size: 1.3em;
-      color: #dcdcdc;
-      margin-bottom: 2em;
-    }
-
-    .hero .btn {
-      background: #ffc107;
-      color: #000;
-      padding: 0.8em 1.5em;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .counters {
+    .skills, .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      text-align: center;
-      margin: 4em auto;
-      max-width: 1000px;
-      gap: 2em;
-      position: relative;
-      z-index: 1;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-
-    .counter-box {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 2em;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
-
-    .counter-box:hover {
-      transform: scale(1.05);
+    .card:hover {
+      transform: translateY(-5px);
     }
-
-    .counter-number {
-      font-size: 2.5em;
-      color: #ffc107;
-      margin-bottom: 0.5em;
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #1565c0;
     }
-
-    .flower {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: url('https://i.imgur.com/Hd0zFPZ.png') no-repeat center/contain;
-      animation: float 10s infinite ease-in-out;
-      z-index: 0;
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 3px solid #1976d2;
     }
-
-    .flower:nth-child(2) { top: 10%; left: 5%; animation-duration: 12s; }
-    .flower:nth-child(3) { top: 30%; left: 90%; animation-duration: 9s; }
-    .flower:nth-child(4) { top: 70%; left: 20%; animation-duration: 14s; }
-    .flower:nth-child(5) { top: 80%; left: 80%; animation-duration: 11s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-20px) rotate(180deg); }
+    .timeline div {
+      margin-bottom: 2rem;
     }
-
+    .timeline h4 {
+      margin-bottom: 0.3rem;
+    }
     footer {
       text-align: center;
-      padding: 2em;
-      background: #111;
-      color: #aaa;
-      font-size: 0.9em;
-      position: relative;
-      z-index: 1;
+      padding: 2rem 1rem;
+      background: #0d47a1;
+      color: white;
     }
-
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2em; }
-      .hero p { font-size: 1em; }
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+  <header class="fade-in">
+    <h1>My Web Journey</h1>
+    <p>Exploring code, design, and creativity through the web.</p>
+  </header>
 
-  <div class="stars"></div>
-  <div class="flower"></div>
-  <div class="flower"></div>
-  <div class="flower"></div>
-  <div class="flower"></div>
-
-  <section class="hero">
-    <h1>From Numbers to Success</h1>
-    <p>Every step you take adds up. Let your numbers tell the story of your growth.</p>
-    <a href="#" class="btn">Start Your Journey</a>
+  <section class="section fade-in">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="card">
+        <h3>HTML & CSS</h3>
+        <p>Building beautiful, responsive layouts and styling them with CSS.</p>
+      </div>
+      <div class="card">
+        <h3>JavaScript</h3>
+        <p>Interactive elements, dynamic content, and web application logic.</p>
+      </div>
+      <div class="card">
+        <h3>Flask & Python</h3>
+        <p>Creating backend logic and APIs for dynamic web apps.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="counters">
-    <div class="counter-box">
-      <div class="counter-number">5,000+</div>
-      <div>Happy Learners</div>
+  <section class="section fade-in">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <h3>Portfolio Website</h3>
+        <p>Designed a modern personal site with responsive design and animations.</p>
+      </div>
+      <div class="card">
+        <h3>Task Tracker App</h3>
+        <p>Built with Flask, SQLite and Bootstrap to manage to-do items efficiently.</p>
+      </div>
+      <div class="card">
+        <h3>Kenya Live Score</h3>
+        <p>A real-time sports score portal using Flask and REST APIs.</p>
+      </div>
     </div>
-    <div class="counter-box">
-      <div class="counter-number">120+</div>
-      <div>Completed Projects</div>
-    </div>
-    <div class="counter-box">
-      <div class="counter-number">85%</div>
-      <div>Success Rate</div>
-    </div>
-    <div class="counter-box">
-      <div class="counter-number">24/7</div>
-      <div>Support</div>
+  </section>
+
+  <section class="section fade-in">
+    <h2>Timeline</h2>
+    <div class="timeline">
+      <div>
+        <h4>2023 - Started learning HTML & CSS</h4>
+        <p>Practiced daily building layouts and replicating templates.</p>
+      </div>
+      <div>
+        <h4>2024 - Learned Flask and JavaScript</h4>
+        <p>Created multiple interactive apps and completed real-world projects.</p>
+      </div>
+      <div>
+        <h4>2025 - Building full-stack applications</h4>
+        <p>Using Flask, PostgreSQL, and advanced UI techniques.</p>
+      </div>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 From Numbers to Success. All rights reserved.
+    <p>&copy; 2025 My Web Journey. Built with love and code.</p>
   </footer>
-
 </body>
 </html>
