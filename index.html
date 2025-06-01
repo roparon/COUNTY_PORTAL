@@ -2,130 +2,189 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudySmart & CSS Galaxy Tour</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSSmart Shop - Product Catalog</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Poppins', sans-serif;
       margin: 0;
-      background: #f9f9fb;
-      color: #222;
+      background: linear-gradient(135deg, #f0f4ff, #d9e7ff);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     header {
-      background-color: #6c5ce7;
+      background: #5a67d8;
       color: white;
       text-align: center;
       padding: 2rem 1rem;
+      box-shadow: 0 4px 10px rgba(90, 103, 216, 0.5);
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 2rem;
+    header h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2.5rem;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
     }
-    .grid {
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
-    .card {
+    .product-card {
       background: white;
-      border-radius: 10px;
-      padding: 1.2rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      transition: 0.3s ease;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(90, 103, 216, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover {
-      transform: translateY(-5px);
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(90, 103, 216, 0.15), transparent 70%);
+      transform: rotate(0deg);
+      transition: transform 0.7s ease;
+      z-index: 0;
     }
-    h2 {
-      color: #6c5ce7;
-      border-left: 5px solid #a29bfe;
-      padding-left: 0.5rem;
+    .product-card:hover::before {
+      transform: rotate(45deg);
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(90, 103, 216, 0.4);
+    }
+    .product-image {
+      width: 120px;
+      height: 120px;
       margin-bottom: 1rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      box-shadow: 0 6px 15px rgba(118, 75, 162, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: 700;
+      font-size: 2.5rem;
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+    .product-title {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem 0;
+      z-index: 1;
+      position: relative;
+    }
+    .product-desc {
+      font-size: 1rem;
+      text-align: center;
+      color: #555;
+      margin-bottom: 1.5rem;
+      z-index: 1;
+      position: relative;
+    }
+    .btn-buy {
+      background: #5a67d8;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(90, 103, 216, 0.5);
+    }
+    .btn-buy:hover {
+      background: #4c51bf;
+      box-shadow: 0 6px 20px rgba(76, 81, 191, 0.7);
     }
     footer {
-      background-color: #6c5ce7;
-      color: white;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      padding: 1rem 0;
+      background: #5a67d8;
+      color: white;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      box-shadow: 0 -4px 10px rgba(90, 103, 216, 0.4);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 400px) {
+      .product-image {
+        width: 100px;
+        height: 100px;
+        font-size: 2rem;
+      }
+      header h1 {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📘 StudySmart</h1>
-    <p>Explore curated learning resources by topic.</p>
-  </header>
-
-  <div class="container">
-    <h2>📚 Learning Topics</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Mathematics</h3>
-        <p>Interactive algebra, geometry, and calculus guides with quizzes.</p>
-      </div>
-      <div class="card">
-        <h3>Science</h3>
-        <p>Explore physics simulations, chemistry labs, and biology diagrams.</p>
-      </div>
-      <div class="card">
-        <h3>Languages</h3>
-        <p>Grammar tips, vocabulary lists, and practice texts in multiple languages.</p>
-      </div>
-      <div class="card">
-        <h3>Technology</h3>
-        <p>Get started with coding, AI concepts, and tech trends.</p>
-      </div>
-    </div>
-  </div>
-
-  <header>
     <h1>🛒 CSSmart Shop</h1>
-    <p>Modern catalog of stylish CSS-designed products.</p>
+    <p>Discover stylish CSS-designed products with smooth animations</p>
   </header>
-  <div class="container">
-    <h2>🛍️ Product Collection</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Gradient Hoodie</h3>
-        <p>Chic and smooth gradient hoodie made with CSS layers and flexbox.</p>
-      </div>
-      <div class="card">
-        <h3>Shadow Sneakers</h3>
-        <p>Box-shadow kicks for the sharpest stylists.</p>
-      </div>
-      <div class="card">
-        <h3>Neon Watch</h3>
-        <p>Time meets transition: glowing wristwear from hover to heartbeat.</p>
-      </div>
-    </div>
-  </div>
 
-  <header>
-    <h1>🚀 CSS Galaxy Tour</h1>
-    <p>A CSS-powered voyage across the stars and beyond.</p>
-  </header>
-  <div class="container">
-    <h2>🪐 Explore the Cosmos</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Solar System</h3>
-        <p>Interactive orbit models of planets styled with pure CSS animation.</p>
-      </div>
-      <div class="card">
-        <h3>Constellations</h3>
-        <p>Connect the CSS dots: Orion, Ursa Major, and more celestial designs.</p>
-      </div>
-      <div class="card">
-        <h3>Black Hole Simulator</h3>
-        <p>CSS animations and gradients to visualize space-time warps.</p>
-      </div>
-    </div>
-  </div>
+  <main>
+    <article class="product-card" tabindex="0" aria-label="Gradient Hoodie">
+      <div class="product-image">🧥</div>
+      <h2 class="product-title">Gradient Hoodie</h2>
+      <p class="product-desc">Chic and smooth gradient hoodie made with CSS layers and flexbox.</p>
+      <button class="btn-buy" type="button">Buy Now</button>
+    </article>
+
+    <article class="product-card" tabindex="0" aria-label="Shadow Sneakers">
+      <div class="product-image">👟</div>
+      <h2 class="product-title">Shadow Sneakers</h2>
+      <p class="product-desc">Box-shadow kicks for the sharpest stylists.</p>
+      <button class="btn-buy" type="button">Buy Now</button>
+    </article>
+
+    <article class="product-card" tabindex="0" aria-label="Neon Watch">
+      <div class="product-image">⌚</div>
+      <h2 class="product-title">Neon Watch</h2>
+      <p class="product-desc">Time meets transition: glowing wristwear from hover to heartbeat.</p>
+      <button class="btn-buy" type="button">Buy Now</button>
+    </article>
+  </main>
 
   <footer>
-    &copy; 2025 StudySmart | CSSmart Shop | CSS Galaxy Tour
+    &copy; 2025 CSSmart Shop. All rights reserved.
   </footer>
 </body>
 </html>
