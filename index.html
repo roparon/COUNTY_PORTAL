@@ -185,6 +185,208 @@
 
   <footer>
     &copy; 2025 CSSmart Shop. All rights reserved.
-  </footer>
+  </footer><!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CSS Galaxy Tour</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+  
+      body {
+        margin: 0;
+        font-family: 'Orbitron', monospace, sans-serif;
+        background: radial-gradient(ellipse at center, #000010 0%, #000000 100%);
+        color: #e0e0ff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem 4rem;
+        overflow-x: hidden;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      header h1 {
+        font-size: 3rem;
+        margin: 0;
+        letter-spacing: 0.2em;
+        color: #8ab4f8;
+        text-shadow: 0 0 10px #8ab4f8, 0 0 20px #5c7def;
+      }
+      header p {
+        font-size: 1.2rem;
+        color: #bbcaff;
+        margin-top: 0.3rem;
+        font-style: italic;
+      }
+  
+      .starfield {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        pointer-events: none;
+        background:
+          radial-gradient(2px 2px at 20% 30%, #ffffff, transparent),
+          radial-gradient(1.5px 1.5px at 50% 70%, #c9d1ff, transparent),
+          radial-gradient(1px 1px at 80% 50%, #a1b0ff, transparent);
+        background-repeat: repeat;
+        animation: star-move 60s linear infinite;
+        z-index: 0;
+      }
+  
+      @keyframes star-move {
+        from {background-position: 0 0, 0 0, 0 0;}
+        to {background-position: -5000px 5000px, -3000px 3000px, -2000px 4000px;}
+      }
+  
+      .container {
+        max-width: 900px;
+        z-index: 1;
+        width: 100%;
+      }
+  
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.8rem;
+      }
+  
+      .card {
+        background: linear-gradient(145deg, #1b1b3a, #0d0d1f);
+        border-radius: 20px;
+        box-shadow:
+          inset 0 0 8px #4e57ff,
+          0 0 15px rgba(138, 180, 248, 0.6);
+        padding: 1.5rem 1.2rem;
+        color: #a9b8ff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: default;
+        text-align: center;
+        user-select: none;
+        position: relative;
+      }
+      .card:hover {
+        transform: translateY(-12px) scale(1.05);
+        box-shadow:
+          inset 0 0 12px #728cff,
+          0 0 30px rgba(138, 180, 248, 0.9);
+        color: #c7d2ff;
+      }
+  
+      .card h3 {
+        margin-top: 0;
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+        text-shadow: 0 0 8px #7a8eff;
+      }
+      .card p {
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+  
+      /* Animated orbit for Solar System */
+      .orbit-container {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1rem;
+        border-radius: 50%;
+        border: 1.5px dashed #7183ff44;
+        animation: spin 60s linear infinite;
+        box-shadow: 0 0 8px #6e7ff7;
+      }
+  
+      .planet {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle at center, #9cb2ff, #334999);
+        border-radius: 50%;
+        transform-origin: -50px 50%;
+        animation: orbit-spin 10s linear infinite;
+        box-shadow: 0 0 6px #a9b8ff;
+      }
+      .planet:nth-child(1) {
+        animation-duration: 8s;
+        background: radial-gradient(circle at center, #ffe699, #ccaa33);
+        box-shadow: 0 0 10px #ffdd66;
+      }
+      .planet:nth-child(2) {
+        animation-duration: 12s;
+        background: radial-gradient(circle at center, #99ddff, #3399cc);
+        box-shadow: 0 0 10px #66ccff;
+        width: 15px; height: 15px;
+      }
+      .planet:nth-child(3) {
+        animation-duration: 16s;
+        background: radial-gradient(circle at center, #ff9999, #cc3333);
+        box-shadow: 0 0 10px #ff6666;
+        width: 12px; height: 12px;
+      }
+  
+      @keyframes spin {
+        0% { transform: rotate(0deg);}
+        100% { transform: rotate(360deg);}
+      }
+      @keyframes orbit-spin {
+        0% { transform: rotate(0deg) translateX(50px) rotate(0deg);}
+        100% { transform: rotate(360deg) translateX(50px) rotate(-360deg);}
+      }
+  
+      footer {
+        margin-top: 3rem;
+        padding: 1rem 0;
+        width: 100%;
+        text-align: center;
+        color: #6a7affaa;
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="starfield"></div>
+  
+    <header>
+      <h1>🚀 CSS Galaxy Tour</h1>
+      <p>A CSS-powered voyage across the stars and beyond.</p>
+    </header>
+  
+    <main class="container">
+      <section class="grid">
+        <article class="card" tabindex="0" aria-label="Solar System">
+          <div class="orbit-container" aria-hidden="true">
+            <div class="planet"></div>
+            <div class="planet"></div>
+            <div class="planet"></div>
+          </div>
+          <h3>Solar System</h3>
+          <p>Interactive orbit models of planets styled with pure CSS animation.</p>
+        </article>
+  
+        <article class="card" tabindex="0" aria-label="Constellations">
+          <h3>Constellations</h3>
+          <p>Connect the CSS dots: Orion, Ursa Major, and more celestial designs.</p>
+        </article>
+  
+        <article class="card" tabindex="0" aria-label="Black Hole Simulator">
+          <h3>Black Hole Simulator</h3>
+          <p>CSS animations and gradients to visualize space-time warps.</p>
+        </article>
+      </section>
+    </main>
+  
+    <footer>
+      &copy; 2025 CSS Galaxy Tour
+    </footer>
+  </body>
+  </html>
+  
 </body>
 </html>
