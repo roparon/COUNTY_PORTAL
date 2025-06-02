@@ -288,55 +288,7 @@
       }
   
       /* Animated orbit for Solar System */
-      .orbit-container {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        margin: 0 auto 1rem;
-        border-radius: 50%;
-        border: 1.5px dashed #7183ff44;
-        animation: spin 60s linear infinite;
-        box-shadow: 0 0 8px #6e7ff7;
-      }
-  
-      .planet {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        background: radial-gradient(circle at center, #9cb2ff, #334999);
-        border-radius: 50%;
-        transform-origin: -50px 50%;
-        animation: orbit-spin 10s linear infinite;
-        box-shadow: 0 0 6px #a9b8ff;
-      }
-      .planet:nth-child(1) {
-        animation-duration: 8s;
-        background: radial-gradient(circle at center, #ffe699, #ccaa33);
-        box-shadow: 0 0 10px #ffdd66;
-      }
-      .planet:nth-child(2) {
-        animation-duration: 12s;
-        background: radial-gradient(circle at center, #99ddff, #3399cc);
-        box-shadow: 0 0 10px #66ccff;
-        width: 15px; height: 15px;
-      }
-      .planet:nth-child(3) {
-        animation-duration: 16s;
-        background: radial-gradient(circle at center, #efa3a3, #6b0808);
-        box-shadow: 0 0 10px #10b008;
-        width: 12px; height: 12px;
-      }
-  
-      @keyframes spin {
-        0% { transform: rotate(0deg);}
-        100% { transform: rotate(360deg);}
-      }
-      @keyframes orbit-spin {
-        0% { transform: rotate(0deg) translateX(50px) rotate(0deg);}
-        100% { transform: rotate(360deg) translateX(50px) rotate(-360deg);}
-      }
+
   
       footer {
         margin-top: 3rem;
