@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woofers & Electronics Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & global styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.8;
+    }
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(to right, #111, #333);
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 10px;
+      z-index: 1000;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    nav a {
+      color: #eee;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    nav a:hover {
+      color: #1dd1a1;
+      transform: scale(1.05);
+    }
+
+    /* Section layout */
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #222;
+      border-left: 5px solid #007BFF;
+      padding-left: 10px;
+    }
+
+    ul {
+      list-style: square inside;
+    }
+
+    footer {
+      background-color: #111;
+      color: #bbb;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 50px;
+    }
+
+    /* Scroll to top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      font-size: 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+    #scrollTopBtn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    @media screen and (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎵 Woofers & Electronics Hub</h1>
+    <p>Explore powerful woofers, electronics knowledge, tutorials & trusted shops</p>
+  </header>
+
+  <nav>
+    <a href="#woofers">Woofers</a>
+    <a href="#electronics">Electronics</a>
+    <a href="#tutorials">Tutorials</a>
+    <a href="#shops">Shops</a>
+    <a href="#youtube">YouTube</a>
+  </nav>
+
+  <section id="woofers">
+    <h2>🔊 Woofers & Subwoofers</h2>
+    <ul>
+      <li><a href="https://www.crutchfield.com/ISEO-rgbtcspd/lg_200/Car-Subwoofers.html" target="_blank">Top Car Subwoofers (Crutchfield)</a></li>
+      <li><a href="https://www.sony.com/electronics/car-subwoofers" target="_blank">Sony Car Subwoofers</a></li>
+      <li><a href="https://www.jbl.com/woofers/" target="_blank">JBL Woofers</a></li>
+      <li><a href="https://www.kenwood.com/usa/car/subwoofers/" target="_blank">Kenwood Subwoofer Catalog</a></li>
+      <li><a href="https://www.bassheadspeakers.com/" target="_blank">Bass Head Speakers Reviews</a></li>
+    </ul>
+  </section>
+
+  <section id="electronics">
+    <h2>💡 General Electronics</h2>
+    <ul>
+      <li><a href="https://www.electronics-tutorials.ws/" target="_blank">Electronics-Tutorials.ws</a></li>
+      <li><a href="https://learn.sparkfun.com/" target="_blank">SparkFun Electronics Learning</a></li>
+      <li><a href="https://circuitdigest.com" target="_blank">Circuit Digest</a></li>
+      <li><a href="https://www.digikey.com/en/resources" target="_blank">DigiKey Learning Hub</a></li>
+      <li><a href="https://www.allaboutcircuits.com/" target="_blank">All About Circuits</a></li>
+    </ul>
+  </section>
+
+  <section id="tutorials">
+    <h2>🧠 DIY & Tutorials</h2>
+    <ul>
+      <li><a href="https://www.instructables.com/DIY-Speaker/" target="_blank">Build Your Own Speaker (Instructables)</a></li>
+      <li><a href="https://www.electronicsforu.com/" target="_blank">Electronics For You Projects</a></li>
+      <li><a href="https://www.theengineeringprojects.com/" target="_blank">The Engineering Projects</a></li>
+      <li><a href="https://www.hackster.io/" target="_blank">Hackster.io DIY Electronics</a></li>
+    </ul>
+  </section>
+
+  <section id="shops">
+    <h2>🛒 Online Shops</h2>
+    <ul>
+      <li><a href="https://www.amazon.com/" target="_blank">Amazon Electronics</a></li>
+      <li><a href="https://www.aliexpress.com/" target="_blank">AliExpress Speakers</a></li>
+      <li><a href="https://www.jumia.co.ke/" target="_blank">Jumia Kenya Woofers</a></li>
+      <li><a href="https://www.ebay.com/" target="_blank">eBay Electronics</a></li>
+    </ul>
+  </section>
+
+  <section id="youtube">
+    <h2>📺 YouTube Channels</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/c/GreatScottLab" target="_blank">GreatScott! (Electronics tutorials)</a></li>
+      <li><a href="https://www.youtube.com/c/DIYPerks" target="_blank">DIY Perks</a></li>
+      <li><a href="https://www.youtube.com/user/ElectroBOOM" target="_blank">ElectroBOOM</a></li>
+      <li><a href="https://www.youtube.com/c/TechZone" target="_blank">TechZone</a></li>
+      <li><a href="https://www.youtube.com/c/AudioScienceReview" target="_blank">Audio Science Review</a></li>
+    </ul>
+  </section>
+
+  <button id="scrollTopBtn" onclick="scrollToTop()">↑</button>
+
+  <footer>
+    <p>&copy; 2025 Woofers & Electronics Hub | Designed with ❤️ by Aaron Rop</p>
+  </footer>
+
+  <script>
+    // Scroll-to-top logic
+    const btn = document.getElementById("scrollTopBtn");
+    window.onscroll = () => {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+    function scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+
+</body>
+</html>
