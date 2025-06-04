@@ -1,11 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fakebook - Social Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+    <h1 class="text-2xl font-bold">Fakebook</h1>
+    <nav class="space-x-4">
+      <a href="#" class="hover:underline">Home</a>
+      <a href="#" class="hover:underline">Friends</a>
+      <a href="#" class="hover:underline">Messages</a>
+      <a href="#" class="hover:underline">Notifications</a>
+      <a href="#" class="hover:underline">Profile</a>
+    </nav>
+  </header>
+
+  <!-- Layout -->
+  <div class="flex max-w-7xl mx-auto mt-6">
+
+    <!-- Sidebar -->
+    <aside class="w-1/4 p-4 bg-white rounded shadow">
+      <h2 class="text-lg font-semibold mb-4">Navigation</h2>
+      <ul class="space-y-2 text-blue-700">
+        <li><a href="#">News Feed</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="#">Groups</a></li>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Watch</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Saved</a></li>
+        <li><a href="#">Gaming</a></li>
+        <li><a href="#">Weather</a></li>
+        <li><a href="#">COVID-19 Info Center</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Feed -->
+    <main class="w-2/4 mx-4">
+      <div class="bg-white p-4 rounded shadow mb-4">
+        <h2 class="font-semibold text-xl mb-2">Your Feed</h2>
+        <div class="space-y-4">
+          <div class="border-b pb-2">
+            <h3 class="font-semibold">John Doe <span class="text-sm text-gray-500">posted</span></h3>
+            <p class="text-sm text-gray-700">"Check out this new tech!"</p>
+            <a href="#" class="text-blue-600 text-sm hover:underline">Read more</a>
+          </div>
+          <div class="border-b pb-2">
+            <h3 class="font-semibold">Jane Smith <span class="text-sm text-gray-500">shared a link</span></h3>
+            <a href="#" class="text-blue-600 hover:underline">https://news.example.com/new-ai-tool</a>
+          </div>
+          <div class="border-b pb-2">
+            <h3 class="font-semibold">Tech Trends <span class="text-sm text-gray-500">posted an update</span></h3>
+            <p class="text-sm text-gray-700">"Top 10 gadgets of 2025!"</p>
+            <a href="#" class="text-blue-600 text-sm hover:underline">Explore now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- More Post Links -->
+      <div class="bg-white p-4 rounded shadow">
+        <h2 class="font-semibold text-lg mb-3">Suggested Links</h2>
+        <ul class="list-disc pl-5 space-y-1 text-blue-600">
+          <li><a href="#">Explore Kenya Photos</a></li>
+          <li><a href="#">Watch Top Videos</a></li>
+          <li><a href="#">Connect with Friends</a></li>
+          <li><a href="#">Upgrade your account</a></li>
+          <li><a href="#">Visit Marketplace</a></li>
+          <li><a href="#">Find Nearby Events</a></li>
+          <li><a href="#">Join Tech Groups</a></li>
+        </ul>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="w-1/4 p-4 bg-white rounded shadow">
+      <h2 class="text-lg font-semibold mb-4">Sponsored</h2>
+      <ul class="space-y-3 text-blue-700">
+        <li><a href="#">📱 Buy latest smartphones</a></li>
+        <li><a href="#">🎧 Explore Bluetooth speakers</a></li>
+        <li><a href="#">💻 Enroll in Coding Bootcamps</a></li>
+        <li><a href="#">🏋️‍♀️ Home Workout Gear</a></li>
+        <li><a href="#">✈️ Travel Deals 2025</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 mt-10 p-6 text-sm text-gray-700 text-center">
+    <p class="mb-2">Links: 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">About</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Help</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Terms</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Privacy</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Careers</a>
+    </p>
+    <p>&copy; 2025 Fakebook. A fun clone for educational purposes.</p>
+  </footer>
+
 </body>
 </html>
