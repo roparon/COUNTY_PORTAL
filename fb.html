@@ -1,1 +1,107 @@
 
+from flask import Flask, request, redirect, url_for, flash, session
+from flask import render_template_string
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key'
+
+# In-memory user store
+users = {}
+
+# Inline HTML templates
+register_template = """
+<!DOCTYPE html>
+<html>
+<head><title>Register</title></head>
+<body>
+  <h2>Register</h2>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p style="color: {{ 'red' if category == 'error' else 'green' }}">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+  <form method="POST">
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    <button type="submit">Register</button>
+  </form>
+  <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+</body>
+</html>
+"""
+
+login_template = """
+<!DOCTYPE html>
+<html>
+<head><title>Login</title></head>
+<body>
+  <h2>Login</h2>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <p style="color: {{ 'red' if category == 'error' else 'green' }}">{{ message }}</p>
+    {% endfor %}
+  {% endwith %}
+  <form method="POST">
+    <input type="email" name="email" placeholder="Email" required><br><br>
+    <input type="password" name="password" placeholder="Password" required><br><br>
+    <button type="submit">Login</button>
+  </form>
+  <p>Don’t have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+</body>
+</html>
+"""
+
+welcome_template = """
+<!DOCTYPE html>
+<html>
+<head><title>Welcome</title></head>
+<body>
+  <h2>Welcome {{ user }}!</h2>
+  <p>You are successfully logged in.</p>
+  <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
+"""
+
+@app.route('/')
+def home():
+    return redirect(url_for('login'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if email in users:
+            flash('User already exists. Try logging in.', 'error')
+            return redirect(url_for('register'))
+        users[email] = password
+        flash('Registration successful! You can now log in.', 'success')
+        return redirect(url_for('login'))
+    return render_template_string(register_template)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        if users.get(email) == password:
+            session['user'] = email
+            return redirect(url_for('welcome'))
+        flash('Invalid credentials. Try again.', 'error')
+    return render_template_string(login_template)
+
+@app.route('/welcome')
+def welcome():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template_string(welcome_template, user=session['user'])
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
