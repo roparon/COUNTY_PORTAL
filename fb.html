@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fakebook - Scrollable Feed</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md sticky top-0 z-50">
+    <h1 class="text-2xl font-bold">Fakebook</h1>
+    <nav class="space-x-4">
+      <a href="#" class="hover:underline">Home</a>
+      <a href="#" class="hover:underline">Friends</a>
+      <a href="#" class="hover:underline">Messages</a>
+      <a href="#" class="hover:underline">Notifications</a>
+      <a href="#" class="hover:underline">Profile</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <div class="flex max-w-7xl mx-auto mt-4 h-[85vh]">
+
+    <!-- Left Sidebar -->
+    <aside class="w-1/4 p-4 bg-white rounded shadow h-full overflow-y-auto">
+      <h2 class="text-lg font-semibold mb-4">Navigation</h2>
+      <ul class="space-y-2 text-blue-700">
+        <li><a href="#">News Feed</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="#">Groups</a></li>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#">Watch</a></li>
+        <li><a href="#">Events</a></li>
+        <li><a href="#">Saved</a></li>
+        <li><a href="#">Gaming</a></li>
+        <li><a href="#">Weather</a></li>
+        <li><a href="#">Live</a></li>
+        <li><a href="#">Music</a></li>
+        <li><a href="#">Jobs</a></li>
+      </ul>
+    </aside>
+
+    <!-- Scrollable Feed -->
+    <main class="w-2/4 mx-4 h-full overflow-y-auto bg-white p-4 rounded shadow">
+      <h2 class="font-semibold text-xl mb-4">News Feed</h2>
+
+      <!-- Posts -->
+      <div class="space-y-6">
+        <!-- Repeat this block for multiple posts -->
+        <div class="border-b pb-4">
+          <h3 class="font-semibold">John Doe <span class="text-sm text-gray-500">shared</span></h3>
+          <p class="text-sm text-gray-700 mb-1">"Excited for the new woofer launch!"</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">Read More</a>
+        </div>
+        <div class="border-b pb-4">
+          <h3 class="font-semibold">Electro Kenya <span class="text-sm text-gray-500">posted</span></h3>
+          <p class="text-sm text-gray-700 mb-1">Top 10 Electronics Deals This Week</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">View Products</a>
+        </div>
+        <div class="border-b pb-4">
+          <h3 class="font-semibold">Sound Masters</h3>
+          <p class="text-sm text-gray-700 mb-1">Explore premium woofers, home theaters and amplifiers at discounted rates.</p>
+          <a href="#" class="text-blue-600 text-sm hover:underline">Shop Now</a>
+        </div>
+
+        <!-- Add more fake posts -->
+        <div class="border-b pb-4"><h3 class="font-semibold">Mega Electronics</h3><p class="text-sm">Woofer deals up to 40% off.</p><a href="#" class="text-blue-600 hover:underline">See Deals</a></div>
+        <div class="border-b pb-4"><h3 class="font-semibold">Jane Tech</h3><p class="text-sm">Which brand has the best bass woofer?</p><a href="#" class="text-blue-600 hover:underline">Join Discussion</a></div>
+        <div class="border-b pb-4"><h3 class="font-semibold">Music World</h3><p class="text-sm">Top Bluetooth speakers for 2025</p><a href="#" class="text-blue-600 hover:underline">Discover More</a></div>
+        <div class="border-b pb-4"><h3 class="font-semibold">SoundFix Africa</h3><p class="text-sm">We install car woofers at home!</p><a href="#" class="text-blue-600 hover:underline">Book Now</a></div>
+        <div class="border-b pb-4"><h3 class="font-semibold">Bass Boss</h3><p class="text-sm">Win a subwoofer!</p><a href="#" class="text-blue-600 hover:underline">Enter Giveaway</a></div>
+        <div class="border-b pb-4"><h3 class="font-semibold">Kenya Tech Deals</h3><p class="text-sm">Smart TVs, Woofers & more from trusted brands.</p><a href="#" class="text-blue-600 hover:underline">Browse Catalog</a></div>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="w-1/4 p-4 bg-white rounded shadow h-full overflow-y-auto">
+      <h2 class="text-lg font-semibold mb-4">Sponsored</h2>
+      <ul class="space-y-3 text-blue-700">
+        <li><a href="#">🎧 Premium Headphones</a></li>
+        <li><a href="#">🔊 Powerful Subwoofers</a></li>
+        <li><a href="#">💻 Laptops on Sale</a></li>
+        <li><a href="#">📱 Budget Smartphones</a></li>
+        <li><a href="#">🎼 Music Accessories</a></li>
+        <li><a href="#">🎮 Game Consoles</a></li>
+        <li><a href="#">📷 Camera Gear</a></li>
+        <li><a href="#">🛒 Online Electronics Market</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 mt-8 p-6 text-sm text-gray-700 text-center">
+    <p class="mb-2">
+      <a href="#" class="mx-1 text-blue-600 hover:underline">About</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Help</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Privacy</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Terms</a> | 
+      <a href="#" class="mx-1 text-blue-600 hover:underline">Careers</a>
+    </p>
+    <p>&copy; 2025 Fakebook | Made for learning and fun. Not affiliated with Facebook.</p>
+  </footer>
+
+</body>
+</html>
