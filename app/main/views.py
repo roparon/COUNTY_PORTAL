@@ -17,11 +17,6 @@ def index():
     return render_template('main/index.html')
 
 
-@main_bp.route('/about')
-def about():
-    return "This is the County Portal application. It provides various services and information related to county operations."
-
-
 @main_bp.route('/dashboard')                                                  
 @login_required                                                               
 def dashboard():                                                              
