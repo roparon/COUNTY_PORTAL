@@ -108,6 +108,7 @@ def citizen_dashboard():
     return render_template('auth/main/citizen_dashboard.html',                     
                             county=county,                                       
                             departments=departments)                             
+                                        
                                                                                 
 @main_bp.route('/guest-dashboard')                                            
 @login_required                                                               
