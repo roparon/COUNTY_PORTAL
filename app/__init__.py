@@ -101,7 +101,7 @@ def create_app():
 
         # Create admin user
         admin_role = Role.query.filter_by(name='super_admin').first()
-        admin_user = User.query.filter_by(email='shannel@gmail.com').first()
+        admin_user = User.query.filter_by(email='aaronrop@gmail.com').first()
         if not admin_user:
             admin_user = User(
                 email='aaronrop@gmail.com',

@@ -100,10 +100,10 @@ def edit_user(user_id):
     counties = County.query.filter_by(active=True).all()                      
     departments = Department.query.filter_by(active=True).all()               
                                                                                 
-    return render_template('auth/edith_user.html',
-                            user=user,
-                            roles=roles,
-                            counties=counties,
+    return render_template('auth/edit_user.html',                             
+                            user=user,                                           
+                            roles=roles,                                         
+                            counties=counties,                                   
                             departments=departments)                             
                                                                                 
 @auth_bp.route('/users/<int:user_id>/toggle-status', methods=['POST'])        

@@ -81,7 +81,7 @@ def staff_dashboard():
     county_users = county.users.filter(User.id != current_user.id).all()      
     departments = county.departments.all()                                    
                                                                                 
-    return render_template('main/staff_dashboard.html',                       
+    return render_template('auth/main/staff_dashboard.html',                       
                             county=county,                                       
                             county_users=county_users,                           
                             departments=departments)                             
