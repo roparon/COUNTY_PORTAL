@@ -73,18 +73,25 @@ def admin_dashboard():
 def staff_dashboard():                                                        
     """Staff Dashboard - for county staff members"""                          
     if not current_user.county:                                               
-        flash('Your account is not assigned to a county. Please contact anadministrator.', 'warning')   
+        flash('Your account is not assigned to a county. Please contact an administrator.', 'warning')   
         return redirect(url_for('main_bp.index'))                             
                                                                                 
     # Get county-specific data                                                
     county = current_user.county                                              
     county_users = county.users.filter(User.id != current_user.id).all()      
     departments = county.departments.all()                                    
+    stats = {
+        "pending_applications": 0,
+        "approved_applications": 0,
+        "rejected_applications": 0,
+    }
                                                                                 
     return render_template('auth/main/staff_dashboard.html',                       
                             county=county,                                       
                             county_users=county_users,                           
-                            departments=departments)                             
+                            departments=departments,
+                            stats=stats)  # ← add this line
+                          
                                                                                   
 @main_bp.route('/citizen-dashboard')                                          
 @login_required                                                               

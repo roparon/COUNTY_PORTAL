@@ -14,7 +14,7 @@ auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 @login_required                                                               
 def profile():                                                                
     """User profile page"""                                                   
-    return render_template('auth/profile.html', user=current_user)
+    return render_template('auth/main/profile.html', user=current_user)
     
 
 
@@ -41,8 +41,7 @@ def users():
     if role_filter:                                                           
         role = Role.query.filter_by(name=role_filter).first()                 
         if role:                                                              
-            query = query.filter(User.roles.contains(role))                   
-                                                                                
+            query = query.filter(User.roles.contains(role))
     if county_filter:                                                         
         query = query.filter_by(county_id=county_filter)                      
                                                                                 

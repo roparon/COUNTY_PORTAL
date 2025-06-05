@@ -29,8 +29,8 @@
                             {% endif %}
                         </div>
                         <div class="col-md-8">
-                            <form method="POST" action="{{ url_for('auth_bp.update_profile') }}">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <form method="POST" action="{{ url_for('auth_bp.profile') }}">
+                               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <div class="row g-3">
                                     <div class="col-md-6">
                                         <label for="first_name" class="form-label">First Name</label>
@@ -56,13 +56,15 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">County</label>
-                                        <input type="text" class="form-control" aria-label="County"
-                                               value="{{ user.county.name if user.county else 'Not assigned' }}" readonly>
+                                        <input type="text" class="form-control" 
+                                               value="{{ user.county.name if user.county else 'Not assigned' }}" 
+                                               readonly title="County" placeholder="County">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">Role</label>
-                                        <input type="text" class="form-control" aria-label="Role"
-                                               value="{{ user.get_primary_role() }}" readonly>
+                                        <input type="text" class="form-control" 
+                                               value="{{ user.get_primary_role() }}" 
+                                               readonly title="Role" placeholder="Role">
                                     </div>
                                 </div>
                                 <div class="mt-4">
@@ -119,7 +121,7 @@
                         <a href="{{ url_for_security('change_password') }}" class="btn btn-outline-primary">
                             <i class="fas fa-key me-2"></i>Change Password
                         </a>
-                        <button type="button" class="btn btn-outline-info" disabled>
+                        <button class="btn btn-outline-info" disabled>
                             <i class="fas fa-download me-2"></i>Download My Data
                         </button>
                     </div>
