@@ -14,8 +14,7 @@ def index():
     """Home page - redirect based on authentication status"""                 
     if current_user.is_authenticated:                                         
         return redirect(url_for('main_bp.dashboard'))                         
-    return render_template('main/index.html')
-
+    return render_template('auth/main/index.html')
 
 @main_bp.route('/dashboard')                                                  
 @login_required                                                               
@@ -57,7 +56,7 @@ def admin_dashboard():
             'department_count': county.departments.count()                    
         })                                                                    
                                                                                 
-    return render_template('main/admin_dashboard.html',                       
+    return render_template('auth/main/admin_dashboard.html',                       
                             total_users=total_users,                             
                             total_counties=total_counties,                       
                             total_departments=total_departments,                 
@@ -99,7 +98,7 @@ def citizen_dashboard():
     county = current_user.county                                              
     departments = county.departments.all()                                    
                                                                                 
-    return render_template('main/citizen_dashboard.html',                     
+    return render_template('auth/main/citizen_dashboard.html',                     
                             county=county,                                       
                             departments=departments)                             
                                                                                 
@@ -108,7 +107,7 @@ def citizen_dashboard():
 @roles_required(UserRoles.GUEST)                                              
 def guest_dashboard():                                                        
     """Guest Dashboard - limited access"""                                    
-    return render_template('main/guest_dashboard.html')                       
+    return render_template('auth/main/guest_dashboard.html')                       
                                                                                 
 @main_bp.route('/about')                                                      
 def about():                                                                  

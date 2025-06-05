@@ -104,10 +104,10 @@ def create_app():
         admin_user = User.query.filter_by(email='shannel@gmail.com').first()
         if not admin_user:
             admin_user = User(
-                email='shannel@gmail.com',
-                password=hash_password('shannel254'),
-                first_name='shannel',
-                last_name='kirui',
+                email='aaronrop@gmail.com',
+                password=hash_password('rh2030oz'),
+                first_name='Aron',
+                last_name='Rop',
                 active=True,
                 county_id=created_counties['036'].id,
                 roles=[admin_role],
