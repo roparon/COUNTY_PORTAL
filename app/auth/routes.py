@@ -68,7 +68,8 @@ def users():
 @roles_required(UserRoles.SUPER_ADMIN)                                        
 def edit_user(user_id):                                                       
     """Edit user details"""                                                   
-    user = User.query.get_or_404(user_id)                                     
+    user = User.query.get_or_404(user_id)    
+
                                                                                 
     if request.method == 'POST':                                              
         # Update user details                                                 
@@ -113,8 +114,7 @@ def toggle_user_status(user_id):
     user = User.query.get_or_404(user_id)                                     
                                                                                 
     if user.id == current_user.id:                                            
-        return jsonify({'error': 'You cannot deactivate your own account'}),  
-400                                                                             
+        return jsonify({'error': 'You cannot deactivate your own account'}), 400                                                                             
                                                                                 
     user.active = not user.active                                             
     db.session.commit()                                                       
