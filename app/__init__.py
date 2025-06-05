@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
-from app.extensions import db, mail, security
+from app.extensions import db, mail, security, csrf
 from app.models.user import User, Role
 from app.models.county import County, Department
 from app.forms import ExtendedLoginForm, ExtendedRegisterForm
@@ -18,6 +18,7 @@ def create_app():
     
     db.init_app(app)
     mail.init_app(app)
+    csrf.init_app(app)
     
     # Register blueprints
     app.register_blueprint(main_bp)
