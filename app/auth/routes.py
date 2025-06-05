@@ -7,6 +7,7 @@ auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
 
 @auth_bp.route('/profile')
+@login_required
 def profile():
     "This is the current user information"
     # return {
