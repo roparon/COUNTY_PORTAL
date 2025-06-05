@@ -1,4 +1,4 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block title %}Staff Dashboard - County Portal{% endblock %}
 
@@ -9,7 +9,7 @@
             <div>
                 <h1 class="h3 mb-1">Staff Dashboard</h1>
                 <p class="text-muted">
-                    {{ current_user.full_name() }} - {{ current_user.county.name if current_user.county else 'No County' }} County
+                    {{ current_user.full_name() }} - {{ current_user.county.name if current_user.county else 'No County' }} - County
                     {% if current_user.department %}
                     ({{ current_user.department.name }})
                     {% endif %}
