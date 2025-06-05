@@ -100,7 +100,7 @@ def edit_user(user_id):
     counties = County.query.filter_by(active=True).all()                      
     departments = Department.query.filter_by(active=True).all()               
                                                                                 
-    return render_template('auth/edit_user.html',                             
+    return render_template('auth/edith_user.html',                             
                             user=user,                                           
                             roles=roles,                                         
                             counties=counties,                                   
