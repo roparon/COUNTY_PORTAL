@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
-from flask_security import login_required, current_user
+from flask_security import login_required, current_user, roles_required
+from app.models.county import County, Department
+from app.models.user import Role, User
 from app.utils.constants import UserRoles
 
 
@@ -32,3 +34,39 @@ def dashboard():
         return redirect(url_for('main_bp.citizen_dashboard'))                 
     else:                                                                     
         return redirect(url_for('main_bp.guest_dashboard'))
+
+
+@main_bp.route('/admin-dashboard')                                            
+@login_required                                                               
+@roles_required(UserRoles.SUPER_ADMIN)                                        
+def admin_dashboard():                                                        
+    """Super Admin Dashboard"""                                               
+    # Get statistics for the admin dashboard                                  
+    total_users = User.query.count()                                          
+    total_counties = County.query.count()                                     
+    total_departments = Department.query.count()                              
+                                                                                
+    # Get recent users                                                        
+    recent_users = User.query.order_by(User.creaed_at.desc()).limit(5).all()  
+                                                                                
+    # Get users by role                                                       
+    role_stats = {}                                                           
+    for role in Role.query.all():                                             
+        role_stats[role.name] = len(role.users.all())                         
+                                                                                
+    # Get county statistics                                                   
+    county_stats = []                                                         
+    for county in County.query.all():                                         
+        county_stats.append({                                                 
+            'county': county,                                                 
+            'user_count': county.users.count(),                               
+            'department_count': county.departments.count()                    
+        })                                                                    
+                                                                                
+    return render_template('main/admin_dashboard.html',                       
+                            total_users=total_users,                             
+                            total_counties=total_counties,                       
+                            total_departments=total_departments,                 
+                            recent_users=recent_users,                           
+                            role_stats=role_stats,                               
+                            county_stats=county_stats)
