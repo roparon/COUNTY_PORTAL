@@ -63,17 +63,12 @@ class ExtendedLoginForm(LoginForm):
                                                                                   
 class UserProfileForm(Form):                                                  
         """Form for users to update their profile information"""                  
-                                                                                  
         first_name = StringField(                                                 
-            'First Name',                                                         
-            validators=[DataRequired(), Length(min=2, max=50)]                    
-        )                                                                         
-                                                                                  
+            'First Name', validators=[DataRequired(), Length(min=2, max=50)])                                                                        
         last_name = StringField(                                                  
             'Last Name',                                                          
             validators=[DataRequired(), Length(min=2, max=50)]                    
-        )                                                                         
-                                                                                  
+        )                                       
         phone_number = TelField(                                                  
             'Phone Number',                                                       
             validators=[Optional(), Length(min=10, max=15)]                       
