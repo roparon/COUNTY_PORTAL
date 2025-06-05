@@ -5,7 +5,7 @@ from config import Config
 
 
 def create_app():
-    app = Flask(_name_)
+    app = Flask(__name__)
     app.config.from_object(Config)
     db.init_app(app)
     migrate.init_app(app, db)
@@ -41,8 +41,7 @@ def create_app():
                 user.roles.append(default_role)                                   
                 db.session.commit()                                               
                                                                                   
-        print(f"New user registered: {user.email} in {user.county.name if user.
-  county else 'No County'}")
+        print(f"New user registered: {user.email} in {user.county.name if user.county else 'No County'}")
     
     
     # ****End****
