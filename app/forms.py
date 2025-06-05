@@ -8,23 +8,19 @@ from app.models.county import County
 class ExtendedRegisterForm(RegisterForm):
     """Enhanced registration form with additional user fields
     """
-    first_name = StringField(
-        'First Name', validators=[DataRequired('First name is required'), Length(min=2, max=50, message='First name must be between 2 and 50 characters')]
+    first_name = StringField('First Name', validators=[DataRequired('First name is required'), Length(min=2, max=50, message='First name must be between 2 and 50 characters')]
     )
-    last_name = StringField(
-        'Last Name', validators=[DataRequired('Last name is required'), Length(min=2, max=50, message='Last name must be between 2 and 50 characters')]
+    last_name = StringField('Last Name', validators=[DataRequired('Last name is required'), Length(min=2, max=50, message='Last name must be between 2 and 50 characters')]
     )
-    phone_number = TelField(
-        'Phone Number', validators=[Optional(), Length(min=10, max=20, message='phone number must be between 10 and 20 digits')]
+    phone_number = TelField('Phone Number', validators=[Optional(), Length(min=10, max=20, message='phone number must be between 10 and 20 digits')]
     )
-    county_id = SelectField(
-        'County', validators=[DataRequired('County is required')], coerce=int, choices=[] #will be populated dynamically
+    county_id = SelectField('County', validators=[DataRequired('County is required')], coerce=int, choices=[] #will be populated dynamically
     )
     
     
 
-    def _init_(self, *args, **kwargs):                                      
-            super(ExtendedRegisterForm, self)._init_(*args, **kwargs)           
+    def __init__(self, *args, **kwargs):                                      
+            super(ExtendedRegisterForm, self).__init__(*args, **kwargs)           
             # Populate county choices dynamically                                 
             self.county_id.choices = [                                            
                 (county.id, county.name)                                          
