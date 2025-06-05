@@ -24,7 +24,7 @@ class County(db.Model):
             return self.departments.filter_by(active=True).all()                  
                                                                                   
 class Department(db.Model):                                                   
-        _tablename_ = 'departments'                                             
+        __tablename__ = 'departments'                                             
                                                                                   
         id = db.Column(db.Integer, primary_key=True)                              
         name = db.Column(db.String(100), nullable=False)                          
