@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_security import login_required, current_user, roles_required
 from app.models.county import County, Department
 from app.models.user import Role, User
@@ -47,8 +47,7 @@ def admin_dashboard():
     total_departments = Department.query.count()                              
                                                                                 
     # Get recent users                                                        
-    recent_users = User.query.order_by(User.creaed_at.desc()).limit(5).all()  
-                                                                                
+    recent_users = User.query.order_by(User.created_at.desc()).limit(5).all()
     # Get users by role                                                       
     role_stats = {}                                                           
     for role in Role.query.all():                                             
@@ -70,3 +69,53 @@ def admin_dashboard():
                             recent_users=recent_users,                           
                             role_stats=role_stats,                               
                             county_stats=county_stats)
+
+
+
+
+@main_bp.route('/staff-dashboard')                                            
+@login_required                                                               
+@roles_required(UserRoles.STAFF)                                              
+def staff_dashboard():                                                        
+    """Staff Dashboard - for county staff members"""                          
+    if not current_user.county:                                               
+        flash('Your account is not assigned to a county. Please contact anadministrator.', 'warning')   
+        return redirect(url_for('main_bp.index'))                             
+                                                                                
+    # Get county-specific data                                                
+    county = current_user.county                                              
+    county_users = county.users.filter(User.id != current_user.id).all()      
+    departments = county.departments.all()                                    
+                                                                                
+    return render_template('main/staff_dashboard.html',                       
+                            county=county,                                       
+                            county_users=county_users,                           
+                            departments=departments)                             
+                                                                                  
+@main_bp.route('/citizen-dashboard')                                          
+@login_required                                                               
+@roles_required(UserRoles.CITIZEN)                                            
+def citizen_dashboard():                                                      
+    """Citizen Dashboard - for regular citizens"""                            
+    if not current_user.county:                                               
+        flash('Your account is not assigned to a county. Please contact an  administrator.', 'warning')                                                       
+        return redirect(url_for('main_bp.index'))                             
+                                                                                
+    county = current_user.county                                              
+    departments = county.departments.all()                                    
+                                                                                
+    return render_template('main/citizen_dashboard.html',                     
+                            county=county,                                       
+                            departments=departments)                             
+                                                                                
+@main_bp.route('/guest-dashboard')                                            
+@login_required                                                               
+@roles_required(UserRoles.GUEST)                                              
+def guest_dashboard():                                                        
+    """Guest Dashboard - limited access"""                                    
+    return render_template('main/guest_dashboard.html')                       
+                                                                                
+@main_bp.route('/about')                                                      
+def about():                                                                  
+    """About page"""                                                          
+    return render_template('main/about.html')
