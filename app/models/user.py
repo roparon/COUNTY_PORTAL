@@ -12,7 +12,6 @@ class Role(db.Model, RoleMixin):
         return f'<Role {self.name}>'
 
 
-
 # Association table
 roles_users = db.Table('roles_users',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
@@ -27,7 +26,6 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean(), default=True)
     confirmed_at = db.Column(db.DateTime())
     created_at = db.Column(db.DateTime(), nullable=False, default=db.func.current_timestamp())
-    
     # Unique identifier for Flask-Security
     # This is used to ensure that the user can be uniquely identified across sessions
     # and is particularly useful in distributed systems.

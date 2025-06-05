@@ -36,11 +36,10 @@ def create_app():
     def user_registered_signhandler(sender, user, confirm_token, **extra):
         """Handle post-registration logic"""
         # Assign default 'citizen' role
-        default_role = Role.query.filter_by(name='Citizen').first()           
+        default_role = Role.query.filter_by(name='citizen').first()           
         if default_role and not user.roles:                                   
                 user.roles.append(default_role)                                   
-                db.session.commit()                                               
-                                                                                  
+                db.session.commit()
         print(f"New user registered: {user.email} in {user.county.name if user.county else 'No County'}")
     
     
@@ -56,7 +55,7 @@ def create_app():
         counties_data = [                                                         
             {'name': 'Bomet County', 'code': '036', 'description': 'Kipsisgis County'},                                                                       
             {'name': 'Narok County', 'code': '033', 'description': 'Maa county'},                                                                       
-            {'name': 'Kericho County', 'code': '035', 'description': 'Green county'},                                                                       
+            {'name': 'Kericho County', 'code': '035', 'description': 'Green county'}                                                                     
         ]
         created_counties = {}
         for county_data in counties_data:
@@ -102,8 +101,6 @@ def create_app():
             if not role:
                 db.session.add(Role(**role_data))
         db.session.commit()
-        
-        
         
 
         # Create super admin user
