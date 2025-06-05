@@ -1,6 +1,8 @@
-from flask import Blueprint, redirect, url_for
-from flask_security import login_required, current_user, logout_user
-from app.models.user import User
+from flask import Blueprint, redirect, url_for, render_template, requests
+from flask_security import login_required, current_user, roles_required
+from app.models.user import User, Role
+from app.models.county import County, Department
+from app.utils.constants import UserRoles
 
 
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
