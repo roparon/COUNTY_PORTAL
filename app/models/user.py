@@ -3,12 +3,12 @@ from flask_security import UserMixin, RoleMixin
 import uuid
 
 class Role(db.Model, RoleMixin):
-    _tablename_ = 'roles'
+    __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(255), nullable=True)
 
-    def _repr_(self):
+    def __repr__(self):
         return f'<Role {self.name}>'
 
 
@@ -20,7 +20,7 @@ roles_users = db.Table('roles_users',
 )
 
 class User(db.Model, UserMixin):
-    _tablename_ = 'users'
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(200), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
@@ -62,6 +62,6 @@ class User(db.Model, UserMixin):
     def has_role(self, role_name):
         return any(role.name == role_name for role in self.roles)
 
-    def _repr_(self):
+    def __repr__(self):
         role_names = [role.name for role in self.roles]
         return f'<User {self.email}> Roles: {role_names}'
