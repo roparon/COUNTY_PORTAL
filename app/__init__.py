@@ -78,14 +78,13 @@ def create_app():
             for dept_data in departments_data:                                    
                 dept = Department.query.filter_by(                                
                     code=dept_data['code'],                                       
-                    county_id=county.id                                           
-                ).first()                                                         
+                    county_id=county.id).first()                                                         
                 if not dept:                                                      
                     dept = Department(                                            
                         name=dept_data['name'],                                   
                         code=dept_data['code'],                                   
                         county_id=county.id,                                      
-                        description=f"{dept_data['name']} department for {county.name}"                                                                          
+                        description=f"{dept_data['name']} department for {county.name}" 
                     )                                                             
                     db.session.add(dept)                                         
                     print(f"Created department: {dept.name} in {county.name}")
