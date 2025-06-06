@@ -127,3 +127,147 @@ def guest_dashboard():
 def about():                                                                  
     """About page"""                                                          
     return render_template('main/about.html')
+
+
+
+@main_bp.route('/apply', methods=['GET', 'POST'])
+@login_required
+def apply_permit():
+    """Citizen permit application form"""
+    # Only citizens can apply for permits
+    if not current_user.has_role('citizen'):
+        flash('Only citizens can apply for permits.', 'error')
+        return redirect(url_for('main_bp.dashboard'))
+
+    if not current_user.county_id:
+        flash('You must be assigned to a county to apply for permits.', 'error')
+        return redirect(url_for('main_bp.dashboard'))
+
+    form = PermitApplicationForm()
+    form.populate_permit_types(current_user.county_id)
+
+    if form.validate_on_submit():
+        # Create new permit application
+        permit_type = PermitType.query.get(form.permit_type_id.data)
+        if not permit_type:
+            flash('Invalid permit type selected.', 'error')
+            return redirect(url_for('main_bp.apply_permit'))
+
+        application = PermitApplication(
+            user_id=current_user.id,
+            permit_type_id=permit_type.id,
+            department_id=permit_type.department_id,
+            county_id=current_user.county_id,
+            business_name=form.business_name.data,
+            business_address=form.business_address.data,
+            contact_phone=form.contact_phone.data,
+            location_address=form.location_address.data,
+            application_data=json.dumps({
+                'description': form.description.data,
+            })
+        )
+
+        db.session.add(application)
+        db.session.flush()  # Get the application ID
+
+        # Handle file upload if provided
+        if form.documents.data:
+            file = form.documents.data
+            if file.filename:
+                filename = secure_filename(file.filename)
+                # Create uploads directory if it doesn't exist
+                upload_dir = os.path.join(current_app.instance_path, 'uploads', 'permits')
+                os.makedirs(upload_dir, exist_ok=True)
+                # Save file with unique name
+                unique_filename = f"{application.application_number}_{filename}"
+                file_path = os.path.join(upload_dir, unique_filename)
+                file.save(file_path)
+
+                # Create document record
+                document = PermitDocument(
+                    application_id=application.id,
+                    filename=unique_filename,
+                    original_filename=filename,
+                    file_path=file_path,
+                    file_size=os.path.getsize(file_path),
+                    mime_type=file.content_type,
+                    uploaded_by=current_user.id
+                )
+                db.session.add(document)
+
+        # Add initial status to history
+        application.add_status_change('Submitted', current_user.id, 'Application submitted by citizen')
+        db.session.commit()
+
+        flash(f'Application submitted successfully! Application number: {application.application_number}', 'success')
+        return redirect(url_for('main_bp.citizen_dashboard'))
+
+    return render_template('main/apply_permit.html', form=form)
+
+
+@main_bp.route('/permit/<int:permit_id>')
+@login_required
+def permit_detail(permit_id):
+    """View permit application details"""
+    application = PermitApplication.query.get_or_404(permit_id)
+
+    # Check access permissions
+    if not can_access_permit(application):
+        flash('Access denied.', 'error')
+        return redirect(url_for('main_bp.dashboard'))
+
+    return render_template('main/permit_detail.html', application=application)
+
+
+@main_bp.route('/permit/<int:permit_id>/review', methods=['GET', 'POST'])
+@login_required
+def review_permit(permit_id):
+    """Staff review permit application"""
+    # Only staff can review permits
+    if not current_user.has_role('staff'):
+        flash('Access denied.', 'error')
+        return redirect(url_for('main_bp.dashboard'))
+
+    application = PermitApplication.query.get_or_404(permit_id)
+
+    # Check if staff can access this permit (same county/department)
+    if not can_access_permit(application):
+        flash('Access denied.', 'error')
+        return redirect(url_for('main_bp.dashboard'))
+
+    form = ApplicationReviewForm()
+
+    if form.validate_on_submit():
+        # Update application status
+        application.add_status_change(
+            form.status.data,
+            current_user.id,
+            form.officer_comments.data
+        )
+        application.officer_comments = form.officer_comments.data
+        application.priority = form.priority.data
+        application.assigned_officer_id = current_user.id
+        db.session.commit()
+
+        flash(f'Application {form.status.data.lower()} successfully!', 'success')
+        return redirect(url_for('main_bp.permit_detail', permit_id=permit_id))
+
+    return render_template('main/review_permit.html', application=application, form=form)
+
+
+def can_access_permit(application):
+    """Check if current user can access this permit application"""
+    # Super admin can access all
+    if current_user.has_role('super_admin'):
+        return True
+
+    # Staff can access permits in their county and department
+    if current_user.has_role('staff'):
+        return (application.county_id == current_user.county_id and
+                application.department_id == current_user.department_id)
+
+    # Citizens can only access their own applications
+    if current_user.has_role('citizen'):
+        return application.user_id == current_user.id
+
+    return False
