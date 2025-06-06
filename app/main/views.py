@@ -114,19 +114,19 @@ def staff_dashboard():
                             stats=stats)  # ← add this line
                           
                                                                                   
-@main_bp.route('/citizen-dashboard')                                          
-@login_required                                                               
-@roles_required(UserRoles.CITIZEN)                                            
-def citizen_dashboard():                                                      
-    """Citizen Dashboard - for regular citizens"""                            
-    if not current_user.county:                                               
-        flash('Your account is not assigned to a county. Please contact an  administrator.', 'warning')                                                       
-        return redirect(url_for('main_bp.index'))                             
-                                                                                
-    county = current_user.county                                              
+@main_bp.route('/citizen-dashboard')
+@login_required
+@roles_required(UserRoles.CITIZEN)
+def citizen_dashboard():
+    """Citizen Dashboard - for regular citizens"""
+    if not current_user.county:
+        flash('Your account is not assigned to a county. Please contact an administrator.', 'warning')
+        return redirect(url_for('main_bp.index'))
+
+    county = current_user.county
     departments = county.departments.all()
 
-        # Get user's permit applications
+    # Get user's permit applications
     applications = PermitApplication.query.filter_by(user_id=current_user.id) \
         .order_by(PermitApplication.submitted_at.desc()).all()
 
@@ -137,18 +137,22 @@ def citizen_dashboard():
             .filter(Department.county_id == current_user.county_id, PermitType.active == True) \
             .limit(6).all()
 
-        # Calculate application statistics
-        stats = {
-            'total_applications': len(applications),
-            'pending_applications': len([app for app in applications if app.status in ['Submitted', 'Under Review']]),
-            'approved_applications': len([app for app in applications if app.status == 'Approved']),
-            'rejected_applications': len([app for app in applications if app.status == 'Rejected'])
-        }
+    # Calculate application statistics
+    stats = {
+        'total_applications': len(applications),
+        'pending_applications': len([app for app in applications if app.status in ['Submitted', 'Under Review']]),
+        'approved_applications': len([app for app in applications if app.status == 'Approved']),
+        'rejected_applications': len([app for app in applications if app.status == 'Rejected'])
+    }
 
-                                                                                    
-        return render_template('auth/main/citizen_dashboard.html',                     
-                                county=county,                                       
-                                departments=departments)                             
+    return render_template('auth/main/citizen_dashboard.html',
+                           county=county,
+                           departments=departments,
+                           applications=applications,
+                           permit_types=permit_types,
+                           stats=stats,
+                           recent_applications=applications[:10])  # Show last 10 applications
+                           
                                         
                                                                                 
 @main_bp.route('/guest-dashboard')                                            

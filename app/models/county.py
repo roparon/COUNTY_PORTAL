@@ -36,7 +36,8 @@ class Department(db.Model):
         created_at = db.Column(db.DateTime, default=datetime.utcnow)              
                                                                                   
         # Relationships                                                           
-        officers = db.relationship('User', backref='department', lazy='dynamic')  
+        officers = db.relationship('User', backref='department', lazy='dynamic')
+        permit_types = db.relationship('PermitType', backref='department', lazy='dynamic')  
                                                                                   
         def repr(self):                                                       
             return f'Department {self.name} - {self.county.name}'

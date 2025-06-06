@@ -5,18 +5,18 @@
 {% block content %}
 <div class="auth-container">
     <div class="auth-card">
-        <div class="auth-header">
+        <div class="auth-header text-center">
             <i class="fas fa-user-plus fa-2x mb-3"></i>
             <h1>Create Account</h1>
             <p>Join your county's digital services platform</p>
         </div>
 
         <div class="auth-body">
-            <!-- Display flash messages -->
+            <!-- Flash messages -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
-                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
                             <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'info-circle' }} me-2"></i>
                             {{ message }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -32,7 +32,7 @@
                     <!-- First Name -->
                     <div class="col-md-6">
                         <div class="form-floating">
-                            {{ register_user_form.first_name(class="form-control" + (" is-invalid" if register_user_form.first_name.errors else "")) }}
+                            {{ register_user_form.first_name(class="form-control" + (" is-invalid" if register_user_form.first_name.errors else ""), placeholder="First Name") }}
                             {{ register_user_form.first_name.label(class="form-label") }}
                             {% if register_user_form.first_name.errors %}
                                 <div class="invalid-feedback">
@@ -47,7 +47,7 @@
                     <!-- Last Name -->
                     <div class="col-md-6">
                         <div class="form-floating">
-                            {{ register_user_form.last_name(class="form-control" + (" is-invalid" if register_user_form.last_name.errors else "")) }}
+                            {{ register_user_form.last_name(class="form-control" + (" is-invalid" if register_user_form.last_name.errors else ""), placeholder="Last Name") }}
                             {{ register_user_form.last_name.label(class="form-label") }}
                             {% if register_user_form.last_name.errors %}
                                 <div class="invalid-feedback">
@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Email -->
-                <div class="form-floating">
+                <div class="form-floating mt-3">
                     {{ register_user_form.email(class="form-control" + (" is-invalid" if register_user_form.email.errors else ""), placeholder="name@example.com") }}
                     {{ register_user_form.email.label(class="form-label") }}
                     {% if register_user_form.email.errors %}
@@ -74,7 +74,7 @@
                 </div>
 
                 <!-- Phone Number -->
-                <div class="form-floating">
+                <div class="form-floating mt-3">
                     {{ register_user_form.phone_number(class="form-control" + (" is-invalid" if register_user_form.phone_number.errors else ""), placeholder="Phone Number (Optional)") }}
                     {{ register_user_form.phone_number.label(class="form-label") }}
                     {% if register_user_form.phone_number.errors %}
@@ -87,9 +87,9 @@
                 </div>
 
                 <!-- County Selection -->
-                <div class="mb-3">
-                    {{ register_user_form.county_id.label(class="form-label fw-bold") }}
-                    {{ register_user_form.county_id(class="form-select form-select-lg" + (" is-invalid" if register_user_form.county_id.errors else "")) }}
+                <div class="form-floating mt-3">
+                    {{ register_user_form.county_id(class="form-select" + (" is-invalid" if register_user_form.county_id.errors else ""), id="county_id") }}
+                    {{ register_user_form.county_id.label(class="form-label") }}
                     {% if register_user_form.county_id.errors %}
                         <div class="invalid-feedback">
                             {% for error in register_user_form.county_id.errors %}
@@ -97,14 +97,10 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <div class="form-text">
-                        <i class="fas fa-info-circle me-1"></i>
-                        Select the county where you reside or work
-                    </div>
                 </div>
 
                 <!-- Password -->
-                <div class="form-floating">
+                <div class="form-floating mt-3">
                     {{ register_user_form.password(class="form-control" + (" is-invalid" if register_user_form.password.errors else ""), placeholder="Password") }}
                     {{ register_user_form.password.label(class="form-label") }}
                     {% if register_user_form.password.errors %}
@@ -117,7 +113,7 @@
                 </div>
 
                 <!-- Password Confirmation -->
-                <div class="form-floating">
+                <div class="form-floating mt-3">
                     {{ register_user_form.password_confirm(class="form-control" + (" is-invalid" if register_user_form.password_confirm.errors else ""), placeholder="Confirm Password") }}
                     {{ register_user_form.password_confirm.label(class="form-label") }}
                     {% if register_user_form.password_confirm.errors %}
@@ -135,10 +131,9 @@
                 </div>
             </form>
 
-            <div class="footer-links">
+            <div class="footer-links mt-3 text-center">
                 <a href="{{ url_for_security('login') }}">
-                    <i class="fas fa-sign-in-alt me-1"></i>
-                    Already have an account? Sign In
+                    <i class="fas fa-sign-in-alt me-1"></i> Already have an account? Sign In
                 </a>
             </div>
         </div>
@@ -148,32 +143,18 @@
 
 {% block extra_js %}
 <script>
-// Add some interactive enhancements
 document.addEventListener('DOMContentLoaded', function() {
     // Auto-focus first empty field
-    const firstEmptyField = document.querySelector('.form-control:not([value])');
-    if (firstEmptyField) {
-        firstEmptyField.focus();
-    }
+    const firstEmpty = document.querySelector('.form-control:not([value])');
+    if (firstEmpty) firstEmpty.focus();
 
-    // County selection enhancement
-    const countySelect = document.getElementById('county_id');
-    if (countySelect) {
-        countySelect.addEventListener('change', function() {
-            if (this.value !== '0') {
-                this.classList.remove('is-invalid');
-                this.classList.add('is-valid');
-            }
-        });
-    }
-
-    // Form validation feedback
+    // Form validation enhancement for bootstrap styling
     const form = document.querySelector('form');
     form.addEventListener('submit', function(e) {
-        const requiredFields = form.querySelectorAll('[required]');
         let isValid = true;
 
-        requiredFields.forEach(field => {
+        // Validate all required inputs including county dropdown
+        form.querySelectorAll('[required]').forEach(field => {
             if (!field.value.trim()) {
                 field.classList.add('is-invalid');
                 isValid = false;
@@ -184,7 +165,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!isValid) {
             e.preventDefault();
-            // Show error message
             const firstInvalid = form.querySelector('.is-invalid');
             if (firstInvalid) {
                 firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
