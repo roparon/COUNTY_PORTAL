@@ -86,11 +86,26 @@ def staff_dashboard():
     county = current_user.county                                              
     county_users = county.users.filter(User.id != current_user.id).all()      
     departments = county.departments.all()                                    
-    stats = {
-        "pending_applications": 0,
-        "approved_applications": 0,
-        "rejected_applications": 0,
-    }
+    applications = []                                                         
+    if current_user.department_id:                                            
+        applications = PermitApplication.query.filter_by(                     
+            department_id=current_user.department_id,                         
+            county_id=current_user.county_id                                  
+        ).order_by(PermitApplication.submitted_at.desc()).all()               
+                                                                                
+            # Calculate statistics                                                    
+        stats = {                                                                 
+            'total_applications': len(applications),                              
+            'pending_review': len([app for app in applications if app.status ==   
+    'Submitted']),                                                                  
+            'under_review': len([app for app in applications if app.status ==     
+    'Under Review']),                                                               
+            'completed': len([app for app in applications if app.status in        
+    ['Approved', 'Rejected']])                                                      
+        }                                                                         
+                                                                                  
+    # Get recent applications (last 10)                                       
+    recent_applications = applications[:10]  # ← corrected indentation
                                                                                 
     return render_template('auth/main/staff_dashboard.html',                       
                             county=county,                                       
