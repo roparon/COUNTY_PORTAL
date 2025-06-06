@@ -111,6 +111,7 @@ def staff_dashboard():
                             county=county,                                       
                             county_users=county_users,                           
                             departments=departments,
+                            applications=applications,
                             stats=stats)  # ← add this line
                           
                                                                                   
