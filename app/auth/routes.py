@@ -10,7 +10,7 @@ from app.utils.constants import UserRoles
 auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
 
 
-@auth_bp.route('/profile')                                                    
+@auth_bp.route('/profile', methods=['GET', 'POST'])                                                    
 @login_required                                                               
 def profile():                                                                
     """User profile page"""                                                   
