@@ -133,43 +133,12 @@ class MultiCheckboxField(SelectMultipleField):
 
 class UserEditForm(Form):
     """Form for editing user details (admin use)"""
-
-    first_name = StringField(
-        'First Name',
-        validators=[DataRequired(), Length(min=2, max=50)]
-    )
-
-    last_name = StringField(                                                  
-        'Last Name',                                                          
-        validators=[DataRequired(), Length(min=2, max=50)]                    
-    )                                                                         
-                                                                                
-    phone = TelField(                                                         
-        'Phone Number',                                                       
-        validators=[Optional(), Length(min=10, max=20)]                       
-    )                                                                         
-                                                                                
-    county_id = SelectField(                                                  
-        'County',                                                             
-        validators=[Optional()],                                              
-        coerce=int,                                                           
-        choices=[]                                                            
-    )                                                                         
-                                                                                
-    department_id = SelectField(                                              
-        'Department',                                                         
-        validators=[Optional()],                                              
-        coerce=int,                                                           
-        choices=[]                                                            
-    )                                                                         
-                                                                                
-    roles = MultiCheckboxField(                                               
-        'Roles',                                                              
-        validators=[DataRequired('Please select at least one role')],         
-        coerce=int,                                                           
-        choices=[]                                                            
-    )                                                                         
-                                                                                
+    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=50)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=50)])                    
+    phone = TelField('Phone Number', validators=[Optional(), Length(min=10, max=20)])
+    county_id = SelectField('County', validators=[Optional()], coerce=int, choices=[])
+    department_id = SelectField('Department', validators=[Optional()], coerce=int, choices=[])
+    roles = MultiCheckboxField('Roles', validators=[DataRequired('Please select at least one role')], coerce=int, choices=[])
     active = BooleanField('Active Account', default=True)                     
                                                                                 
     def _init_(self, *args, **kwargs):                                      

@@ -241,7 +241,7 @@ def apply_permit():
         flash(f'Application submitted successfully! Application number: {application.application_number}', 'success')
         return redirect(url_for('main_bp.citizen_dashboard'))
 
-    return render_template('main/apply_permit.html', form=form)
+    return render_template('auth/main/apply_permit.html', form=form)
 
 
 @main_bp.route('/permit/<int:permit_id>')
@@ -255,7 +255,7 @@ def permit_detail(permit_id):
         flash('Access denied.', 'error')
         return redirect(url_for('main_bp.dashboard'))
 
-    return render_template('main/permit_detail.html', application=application)
+    return render_template('auth/main/permit_detail.html', application=application)
 
 
 @main_bp.route('/permit/<int:permit_id>/review', methods=['GET', 'POST'])
@@ -291,7 +291,7 @@ def review_permit(permit_id):
         flash(f'Application {form.status.data.lower()} successfully!', 'success')
         return redirect(url_for('main_bp.permit_detail', permit_id=permit_id))
 
-    return render_template('main/review_permit.html', application=application, form=form)
+    return render_template('auth/main/review_permit.html', application=application, form=form)
 
 
 def can_access_permit(application):
