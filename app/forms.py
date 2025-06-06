@@ -209,3 +209,75 @@ class DepartmentAssignmentForm(Form):
                     county_id=county_id, active=True                          
                 ).order_by(Department.name).all()                             
             ]
+
+
+class PermitApplicationForm(Form):                                            
+    """Form for citizens to apply for permits"""                              
+    permit_type_id = SelectField('Permit Type', coerce=int,                   
+    validators=[DataRequired()])                                                    
+    business_name = StringField('Business/Project Name',validators=[DataRequired('Business name is required'), Length(min=2, max=200)])             
+    business_address = TextAreaField('Business Address', validators=[DataRequired('Business address is required')])                                                                 
+    contact_phone = StringField('Contact Phone', validators=[Optional(), Length(max=20)])       
+    description = TextAreaField('Project Description', validators=[Optional()], render_kw={"rows": 4, "placeholder": "Describe your project in detail..."})                                                    
+    location_address = TextAreaField('Project Location',validators=[Optional()],render_kw={"rows": 3})                                                                                                 
+        # Dynamic fields will be added based on permit type                       
+    documents = FileField('Supporting Documents', validators=[FileAllowed(['pdf', 'jpg', 'jpeg', 'png','doc', 'docx'], 'Only PDF, image, and document files are allowed!')])                                                          
+                                                                                  
+    def _init_(self, *args, **kwargs):                                      
+        super(PermitApplicationForm, self)._init_(*args, **kwargs)          
+        # Will be populated dynamically based on user's county                
+        self.permit_type_id.choices = []                                      
+                                                                                
+    def populate_permit_types(self, county_id):                               
+        """Populate permit type choices based on user's county"""             
+        from app.models.permit import PermitType                              
+        permit_types = PermitType.query.join(Department).filter(              
+            Department.county_id == county_id,                                
+            PermitType.active                                        
+        ).all()                                                               
+                                                                                
+        self.permit_type_id.choices = [                                       
+            (pt.id, f"{pt.name} - {pt.department.name}")                      
+            for pt in permit_types                                            
+        ]                                                                     
+        self.permit_type_id.choices.insert(0, (0, 'Select permit type...'))   
+                                                                                  
+class ApplicationReviewForm(Form):                                            
+    """Form for staff to review permit applications"""                        
+    status = SelectField('Action', choices=[                                  
+        ('Under Review', 'Mark Under Review'),                                
+        ('Approved', 'Approve Application'),                                  
+        ('Rejected', 'Reject Application')                                    
+    ], validators=[DataRequired()])                                                                                                                      
+    officer_comments = TextAreaField('Review Comments', validators=[DataRequired('Please provide review comments')], render_kw={"rows": 4, "placeholder": "Enter your review comments..."})                                                                                                                               
+    priority = SelectField('Priority', choices=[                              
+        ('Normal', 'Normal'),                                                 
+        ('High', 'High'),                                                     
+        ('Urgent', 'Urgent')                                                  
+    ], default='Normal')                                                      
+                                                                                
+class PermitTypeForm(Form):                                                   
+    """Form for super_admin to create/edit permit types"""                    
+    name = StringField('Permit Name', validators=[DataRequired(), Length(min=2,max=100)])                                                                      
+    description = TextAreaField('Description', render_kw={"rows": 3})         
+    department_id = SelectField('Department', coerce=int, validators=[DataRequired()])                                                    
+    processing_fee = DecimalField('Processing Fee', validators=[Optional()],places=2)                                                                       
+    processing_days = IntegerField('Processing Days', validators=[Optional()])
+    required_documents = TextAreaField('Required Documents (one per line)',render_kw={"rows": 4, "placeholder": "ID Copy\nBusiness License\nLocation Map"})                                         
+                                                                                
+    def _init_(self, *args, **kwargs):                                      
+        super(PermitTypeForm, self)._init_(*args, **kwargs)                 
+        self.department_id.choices = []                                       
+                                                                                
+    def populate_departments(self, county_id=None):                           
+        """Populate department choices"""                                     
+        query = Department.query.filter_by(active=True)                       
+        if county_id:                                                         
+            query = query.filter_by(county_id=county_id)                      
+        departments = query.all()                                             
+                                                                                
+        self.department_id.choices = [                                        
+            (dept.id, f"{dept.name} - {dept.county.name}")                    
+            for dept in departments                                           
+        ]                                                                     
+        self.department_id.choices.insert(0, (0, 'Select department...'))
