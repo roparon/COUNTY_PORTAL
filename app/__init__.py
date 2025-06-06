@@ -1,9 +1,20 @@
+from flask_security import RegisterForm, LoginForm,Form
+from wtforms import (StringField, SelectField, TelField,BooleanField,SelectMultipleField,
+                     TextAreaField, DecimalField, IntegerField, HiddenField) # Use wtforms for field types
+from wtforms.validators import DataRequired, Optional, ValidationError, Length
+from app.models.county import County,Department # Assuming this import path is correct
+from wtforms.widgets import CheckboxInput,ListWidget ,TextArea 
+from app.models.user import Role
+from flask_wtf.file import FileField, FileAllowed, FileRequired                                                         
+from werkzeug.datastructures import MultiDict
+# Note: Flask-Security's RegisterForm and LoginForm already inherit from wtforms.Form…
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
-from app.extensions import db, mail, security, csrf
+from app.extensions import db, mail, security,csrf
 from app.models.user import User, Role
 from app.models.county import County, Department
-from app.forms import ExtendedLoginForm, ExtendedRegisterForm
+from app.models.permit import PermitType, PermitApplication, PermitDocument
+from app.forms import ExtendedLoginForm, ExtendRegisterForm
 from flask_security import hash_password
 from config import Config
 import uuid
@@ -28,12 +39,11 @@ def create_app():
     
     # Import models and initialize Flask-Security
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-    security.init_app(app, user_datastore, register_form=ExtendedRegisterForm, login_form=ExtendedLoginForm)
+    security.init_app(app, user_datastore, register_form=ExtendRegisterForm, login_form=ExtendedLoginForm)
     
     # ***Advanced Topics****
     # Custom user registration handler
     from flask_security.signals import user_registered
-    from app.models.permit import PermitType, PermitApplication, PermitDocument
 
     @user_registered.connect_via(app)
     def user_registered_sighandler(sender, user, confirm_token, **extra):
@@ -76,7 +86,8 @@ def create_app():
                 for dept_data in departments_data:                                    
                     dept = Department.query.filter_by(                                
                         code=dept_data['code'],                                       
-                        county_id=county.id).first()                                                         
+                        county_id=county.id                                           
+                    ).first()                                                         
                     if not dept:                                                      
                         dept = Department(                                            
                             name=dept_data['name'],                                   
@@ -86,20 +97,19 @@ def create_app():
                         )                                                             
                         db.session.add(dept)                                         
                         print(f"Created department: {dept.name} in {county.name}")
-        
                     db.session.commit()
 
-        """Initialize sample permit types for each department"""                  
-        permit_types_data = [
-            # Trade & Commerce permits                                            
-            {                                                                     
-                'name': 'Business License',                                       
-                'description': 'License for operating a business within the county',                                                                        
-                'department_code': 'TC',                                          
-                'processing_fee': 5000.00,                                        
-                'processing_days': 14,                                            
-                'required_documents': ['ID Copy', 'Business Registration Certificate', 'Tax PIN Certificate', 'Location Map']                            
-            },                                                                    
+    """Initialize sample permit types for each department"""
+    permit_types_data = [
+            # Trade & Commerce permits
+            {
+                'name': 'Business License',
+                'description': 'License for operating a business within the county',
+                'department_code': 'TC',
+                'processing_fee': 5000.00,
+                'processing_days': 14,
+                'required_documents': ['ID Copy', 'Business Registration Certificate', 'Tax PIN Certificate', 'Location Map']
+            },
             {                                                                     
                 'name': 'Trading License',                                        
                 'description': 'License for retail and wholesale trading  activities',                                                                    
@@ -161,34 +171,34 @@ def create_app():
             }                                                                     
         ]                                                                         
                                                                                   
-        for county in created_counties.values():                                  
-            for permit_data in permit_types_data:                                 
-                # Find the department for this permit type                        
-                department = Department.query.filter_by(                          
-                    code=permit_data['department_code'],                          
-                    county_id=county.id                                           
-                ).first()                                                         
-                                                                                  
-                if department:                                                    
-                    # Check if permit type already exists                         
-                    existing_permit = PermitType.query.filter_by(                 
-                        name=permit_data['name'],                                 
-                        department_id=department.id                               
-                    ).first()                                                     
-                                                                                  
-                    if not existing_permit:                                       
-                        permit_type = PermitType(                                 
-                            name=permit_data['name'],                             
-                            description=permit_data['description'],               
-                            department_id=department.id,                          
-                            processing_fee=permit_data['processing_fee'],         
-                            processing_days=permit_data['processing_days'],       
-                            required_documents=json.dumps(permit_data['required_documents'])                                        
-                        )                                                         
-                        db.session.add(permit_type)                               
-                        print(f"Created permit type: {permit_type.name} in {department.name}, {county.name}")                                              
-                                                                                  
-                db.session.commit()
+    for county in created_counties.values():                                  
+        for permit_data in permit_types_data:                                 
+            # Find the department for this permit type                        
+            department = Department.query.filter_by(                          
+                code=permit_data['department_code'],                          
+                county_id=county.id                                           
+            ).first()                                                         
+                                                                                
+            if department:                                                    
+                # Check if permit type already exists                         
+                existing_permit = PermitType.query.filter_by(                 
+                    name=permit_data['name'],                                 
+                    department_id=department.id                               
+                ).first()                                                     
+                                                                                
+                if not existing_permit:                                       
+                    permit_type = PermitType(                                 
+                        name=permit_data['name'],                             
+                        description=permit_data['description'],               
+                        department_id=department.id,                          
+                        processing_fee=permit_data['processing_fee'],         
+                        processing_days=permit_data['processing_days'],       
+                        required_documents=json.dumps(permit_data['required_documents'])                                        
+                    )                                                         
+                    db.session.add(permit_type)                               
+                    print(f"Created permit type: {permit_type.name} in {department.name}, {county.name}")                                              
+                                                                                
+            db.session.commit()
 
 
 
@@ -208,13 +218,13 @@ def create_app():
 
         # Create admin user
         admin_role = Role.query.filter_by(name='super_admin').first()
-        admin_user = User.query.filter_by(email='aaronrop@gmail.com').first()
+        admin_user = User.query.filter_by(email='shannel@gmail.com').first()
         if not admin_user:
             admin_user = User(
-                email='aaronrop@gmail.com',
-                password=hash_password('rh2030oz'),
-                first_name='Aron',
-                last_name='Rop',
+                email='shannel@gmail.com',
+                password=hash_password('shannel254'),
+                first_name='shannel',
+                last_name='kirui',
                 active=True,
                 county_id=created_counties['036'].id,
                 roles=[admin_role],

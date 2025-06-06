@@ -1,9 +1,15 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app 
 from flask_security import login_required, current_user, roles_required
 from app.models.county import County, Department
 from app.models.user import Role, User
 from app.utils.constants import UserRoles
-
+from app.extensions import db
+from app.models.permit import PermitType, PermitApplication, PermitDocument   
+from app.forms import PermitApplicationForm, ApplicationReviewForm            
+from werkzeug.utils import secure_filename                                    
+import os                                                                     
+import json                                                                   
+from datetime import datetime
 
 
 main_bp = Blueprint('main_bp', __name__)
