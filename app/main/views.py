@@ -109,11 +109,31 @@ def citizen_dashboard():
         return redirect(url_for('main_bp.index'))                             
                                                                                 
     county = current_user.county                                              
-    departments = county.departments.all()                                    
-                                                                                
-    return render_template('auth/main/citizen_dashboard.html',                     
-                            county=county,                                       
-                            departments=departments)                             
+    departments = county.departments.all()
+
+        # Get user's permit applications
+    applications = PermitApplication.query.filter_by(user_id=current_user.id) \
+        .order_by(PermitApplication.submitted_at.desc()).all()
+
+    # Get available permit types for quick apply
+    permit_types = []
+    if current_user.county_id:
+        permit_types = PermitType.query.join(Department) \
+            .filter(Department.county_id == current_user.county_id, PermitType.active == True) \
+            .limit(6).all()
+
+        # Calculate application statistics
+        stats = {
+            'total_applications': len(applications),
+            'pending_applications': len([app for app in applications if app.status in ['Submitted', 'Under Review']]),
+            'approved_applications': len([app for app in applications if app.status == 'Approved']),
+            'rejected_applications': len([app for app in applications if app.status == 'Rejected'])
+        }
+
+                                                                                    
+        return render_template('auth/main/citizen_dashboard.html',                     
+                                county=county,                                       
+                                departments=departments)                             
                                         
                                                                                 
 @main_bp.route('/guest-dashboard')                                            
