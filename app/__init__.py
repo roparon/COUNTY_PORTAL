@@ -183,8 +183,7 @@ def create_app():
                 # Check if permit type already exists                         
                 existing_permit = PermitType.query.filter_by(                 
                     name=permit_data['name'],                                 
-                    department_id=department.id                               
-                ).first()                                                     
+                    department_id=department.id).first()                             
                                                                                 
                 if not existing_permit:                                       
                     permit_type = PermitType(                                 
