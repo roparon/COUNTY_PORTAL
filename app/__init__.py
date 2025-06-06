@@ -7,6 +7,7 @@ from app.forms import ExtendedLoginForm, ExtendedRegisterForm
 from flask_security import hash_password
 from config import Config
 import uuid
+import json
 # Import necessary modules and blueprints
 from app.main.views import main_bp
 from app.api.routes import api_bp
@@ -32,6 +33,7 @@ def create_app():
     # ***Advanced Topics****
     # Custom user registration handler
     from flask_security.signals import user_registered
+    from app.models.permit import PermitType, PermitApplication, PermitDocument
 
     @user_registered.connect_via(app)
     def user_registered_sighandler(sender, user, confirm_token, **extra):
